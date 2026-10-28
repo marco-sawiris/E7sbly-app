@@ -53,12 +53,16 @@ public final class MainActivity extends Activity {
         settings.setAllowContentAccess(true);
         settings.setAllowFileAccessFromFileURLs(true);
         settings.setAllowUniversalAccessFromFileURLs(true);
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(false);
+        settings.setLoadWithOverviewMode(false);
+        settings.setTextZoom(100);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
         settings.setSupportZoom(false);
+        try {
+            settings.setUserAgentString(settings.getUserAgentString() + " E7sblyApp/2.0 NativeApp");
+        } catch (Exception ignored) {}
 
         webView.setWebViewClient(new WebViewClient() {
             @Override

@@ -48,11 +48,12 @@ fi
 apksigner sign --ks "$KEYSTORE" --ks-pass pass:ehsably123 --key-pass pass:ehsably123 \
     --ks-key-alias ehsably --out public/E7sbly-release.apk "$BUILD_DIR/aligned.apk"
 
-# Also produce debug apk
+# Also produce debug apk and official E7sbly-Final.apk
+cp public/E7sbly-release.apk public/E7sbly-Final.apk
 cp public/E7sbly-release.apk public/E7sbly-debug.apk
 
 echo "=== 8. Verifying APK signature ==="
-apksigner verify --verbose public/E7sbly-release.apk
+apksigner verify --verbose public/E7sbly-Final.apk
 
 echo "=== APK build completed successfully! ==="
-ls -lh public/E7sbly-release.apk
+ls -lh public/E7sbly-Final.apk public/E7sbly-release.apk

@@ -417,11 +417,11 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#0b1329] text-slate-100' : 'bg-[#f4f7fc] text-[#1f347d]'} transition-colors duration-200 pb-16`}>
+    <div className={`min-h-screen w-full overflow-x-hidden ${theme === 'dark' ? 'bg-[#0b1329] text-slate-100' : 'bg-[#f4f7fc] text-[#1f347d]'} transition-colors duration-200 pb-16`}>
       {/* Top Header */}
-      <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${theme === 'dark' ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-200'} px-4 py-3 shadow-xs`}>
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${theme === 'dark' ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-200'} px-3 sm:px-4 py-3 shadow-xs`}>
+        <div className="w-full max-w-2xl lg:max-w-3xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <button
               onClick={() => setDrawerOpen(true)}
               className={`p-2 rounded-xl border transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
@@ -430,76 +430,36 @@ export default function App() {
               <Menu className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-2.5 font-black text-xl tracking-tight select-none">
+            <div className="flex items-center gap-2 font-black text-xl tracking-tight select-none">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-black text-sm shadow-md hover:scale-105 active:scale-95 transition-transform">
                 <Scale className="w-5 h-5 text-sky-200" />
               </div>
-              <span>
+              <span className="text-[#1f347d] dark:text-white">
                 {lang === 'ar' ? 'احسبلى' : 'E7sbly'}
                 <span className="text-sky-500">.</span>
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* View switcher: App vs QA Verification */}
-            <div className={`flex rounded-xl p-0.5 border text-xs font-semibold ${theme === 'dark' ? 'bg-slate-800/80 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>
-              <button
-                onClick={() => setActiveTab('app')}
-                className={`px-3 py-1.5 rounded-lg transition-all ${activeTab === 'app' ? (theme === 'dark' ? 'bg-sky-500 text-white font-bold shadow-xs' : 'bg-white text-[#1f347d] font-bold shadow-xs') : 'text-slate-400 hover:text-slate-200'}`}
-              >
-                {lang === 'ar' ? 'المقارنة' : 'Compare'}
-              </button>
-              <button
-                onClick={() => setActiveTab('verification')}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${activeTab === 'verification' ? (theme === 'dark' ? 'bg-sky-500 text-white font-bold shadow-xs' : 'bg-white text-[#1f347d] font-bold shadow-xs') : 'text-slate-400 hover:text-slate-200'}`}
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                <span>{lang === 'ar' ? 'فحص واختبار' : 'QA & APK'}</span>
-              </button>
-            </div>
-
-            {/* Direct APK Download button */}
-            <a
-              href="/ehsably-release.apk"
-              download="ehsably-release.apk"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
-              title={lang === 'ar' ? 'تحميل تطبيق الأندرويد APK' : 'Download Android APK'}
-            >
-              <Download className="w-3.5 h-3.5 text-emerald-100" />
-              <span className="hidden sm:inline">{lang === 'ar' ? 'تحميل APK' : 'Download APK'}</span>
-              <span className="sm:hidden font-bold">APK</span>
-            </a>
-
-            {/* Google Drive Upload button */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Quick Theme Toggle */}
             <button
-              type="button"
-              onClick={() => setDriveModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-700 hover:to-blue-800 text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
-              title={lang === 'ar' ? 'رفع التطبيق إلى Google Drive' : 'Upload APK to Google Drive'}
+              onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+              className={`p-2 rounded-xl border flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-amber-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'}`}
+              title={theme === 'dark' ? (lang === 'ar' ? 'الوضع الفاتح' : 'Light Mode') : (lang === 'ar' ? 'الوضع الداكن' : 'Dark Mode')}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              <UploadCloud className="w-3.5 h-3.5 text-sky-100" />
-              <span className="hidden sm:inline">{lang === 'ar' ? 'حفظ في درايف' : 'Save to Drive'}</span>
-              <span className="sm:hidden font-bold">Drive</span>
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
-            {/* Help Dialog button */}
+            {/* Help / Calculation Method Button */}
             <button
               onClick={() => setHelpModalOpen(true)}
               className={`p-2 rounded-xl border flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
               title={lang === 'ar' ? 'طريقة الحساب' : 'How it works'}
+              aria-label={lang === 'ar' ? 'طريقة الحساب' : 'How it works'}
             >
               <HelpCircle className="w-4 h-4" />
-            </button>
-
-            {/* Language toggle button */}
-            <button
-              onClick={() => setLang(l => l === 'ar' ? 'en' : 'ar')}
-              className={`p-2 rounded-xl border flex items-center gap-1 text-xs font-bold transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
-              title={lang === 'ar' ? 'Switch to English' : 'التحويل للعربية'}
-            >
-              <Globe className="w-4 h-4" />
-              <span className="uppercase text-[11px]">{lang}</span>
             </button>
           </div>
         </div>
@@ -529,60 +489,51 @@ export default function App() {
             </div>
 
             <div className="flex-1 overflow-y-auto py-6 space-y-6">
-              {/* APK Download Section */}
-              <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/30">
-                <div className="flex items-center justify-between mb-2">
+              {/* Clean Final App Download Section (E7sbly-Final.apk) */}
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/30">
+                <div className="flex items-center justify-between mb-1.5">
                   <span className="text-xs font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
                     <Download className="w-4 h-4" />
-                    <span>{lang === 'ar' ? 'تثبيت التطبيق على الموبايل' : 'Install on Android'}</span>
+                    <span>{lang === 'ar' ? 'تطبيق احسبلى للأندرويد' : 'E7sbly Android App'}</span>
                   </span>
-                  <span className="text-[10px] bg-emerald-500 text-white font-black px-2 py-0.5 rounded-full">
-                    Release
+                  <span className="text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-full shadow-xs">
+                    Final APK
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
                   {lang === 'ar'
-                    ? 'حزمة أندرويد رسمية جاهزة للتحميل والتثبيت المباشر على جهازك (أندرويد 10 فما فوق).'
-                    : 'Official Android package ready to download and install directly on your phone (Android 10+).'}
+                    ? 'النسخة الكاملة النهائية الجاهزة للتثبيت المباشر على الهاتف وإرسالها للتجربة.'
+                    : 'The complete final release APK ready to install and test on Android phones.'}
                 </p>
-                <div className="space-y-2">
-                  <a
-                    href="/E7sbly-release.apk"
-                    download="E7sbly-release.apk"
-                    className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center justify-center gap-2 shadow-xs transition-transform active:scale-95"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>{lang === 'ar' ? 'تحميل Release APK (1.8 MB)' : 'Download Release APK (1.8 MB)'}</span>
-                  </a>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    <a
-                      href="/E7sbly-debug.apk"
-                      download="E7sbly-debug.apk"
-                      className="py-2 px-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-[10px] font-semibold flex items-center justify-center gap-1 transition-transform active:scale-95 text-slate-600 dark:text-slate-300"
-                    >
-                      <span>Debug APK</span>
-                    </a>
-                    <a
-                      href="/E7sbly-Source-Code.zip"
-                      download="E7sbly-Source-Code.zip"
-                      className="py-2 px-2 rounded-xl border border-sky-300 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-950/30 hover:bg-sky-100 dark:hover:bg-sky-900/40 text-[10px] font-bold flex items-center justify-center gap-1 transition-transform active:scale-95 text-sky-700 dark:text-sky-300"
-                    >
-                      <span>{lang === 'ar' ? 'سورس كود (.zip)' : 'Source (.zip)'}</span>
-                    </a>
-                  </div>
+                <a
+                  href="/E7sbly-Final.apk"
+                  download="E7sbly-Final.apk"
+                  className="w-full py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black text-xs flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-95"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{lang === 'ar' ? 'تحميل E7sbly-Final.apk' : 'Download E7sbly-Final.apk'}</span>
+                </a>
+              </div>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setDrawerOpen(false);
-                      setDriveModalOpen(true);
-                    }}
-                    className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-700 hover:to-blue-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-transform active:scale-95"
-                  >
-                    <UploadCloud className="w-3.5 h-3.5" />
-                    <span>{lang === 'ar' ? 'رفع المشروع إلى Google Drive' : 'Upload Project to Google Drive'}</span>
-                  </button>
-                </div>
+              {/* Calculation Method Button in Drawer */}
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  {lang === 'ar' ? 'المعادلة والحساب' : 'Formula & Logic'}
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setHelpModalOpen(true);
+                  }}
+                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-sm font-semibold text-start transition-colors ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
+                >
+                  <div className="flex items-center gap-2">
+                    <HelpCircle className="w-4 h-4 text-sky-500" />
+                    <span>{lang === 'ar' ? 'طريقة الحساب' : 'Calculation Method'}</span>
+                  </div>
+                  <Info className="w-3.5 h-3.5 text-slate-400" />
+                </button>
               </div>
 
               {/* Theme Selection */}
@@ -766,8 +717,8 @@ export default function App() {
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <HelpCircle className="w-5 h-5 text-sky-500" />
-                <h3 className="font-extrabold text-lg">
-                  {lang === 'ar' ? 'الحسبة سهلة' : 'How it works'}
+                <h3 className="font-extrabold text-base sm:text-lg">
+                  {lang === 'ar' ? 'طريقة الحساب والمعادلة' : 'Calculation Method & Logic'}
                 </h3>
               </div>
               <button
@@ -777,27 +728,49 @@ export default function App() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="py-4 space-y-3 text-xs leading-relaxed">
-              <p>
+
+            {/* Calculation Method Box - White, Dark Navy Border, Dark Navy Text in Light Mode */}
+            <div className="py-4 space-y-3 font-sans">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                 {lang === 'ar'
-                  ? 'احسبلى بيحوّل الأوزان لكيلوجرام (أو الحجم للتر)، وبعدها يقسم سعر كل عبوة على وزنها المعياري.'
-                  : 'E7sbly normalizes weights to kilograms (or volumes to liters), then divides pack price by standardized weight.'}
+                  ? 'يقوم التطبيق بتحويل كافة الأوزان إلى كيلوجرام (أو الأحجام إلى لتر)، ثم يقسم سعر كل عبوة على وزنها لحساب السعر المعياري بدقة:'
+                  : 'E7sbly normalizes all weights to kilograms (or volumes to liters), then calculates exact unit price:'}
               </p>
-              <div className="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900 font-mono font-bold text-sky-800 dark:text-sky-300 space-y-1">
-                <div>٣٠٠ جرام بـ ٣٠ ج = ١٠٠ ج / كيلو</div>
-                <div>٤٥٠ جرام بـ ٤٠ ج ≈ ٨٨٫٨٩ ج / كيلو</div>
+
+              {/* Specification Box: White, dark navy border (#0a192f), dark navy text (#0a192f) in light mode; preserved dark mode */}
+              <div className="p-4 rounded-xl bg-white dark:bg-slate-800/95 border-2 border-[#0a192f] dark:border-slate-700 text-[#0a192f] dark:text-slate-100 shadow-sm space-y-2.5">
+                <div className="font-black text-xs sm:text-sm pb-1.5 border-b border-[#0a192f]/20 dark:border-slate-700 flex items-center justify-between">
+                  <span>{lang === 'ar' ? 'معادلة الحساب الموحدة:' : 'Standardized Formula:'}</span>
+                  <span className="text-[11px] font-bold text-sky-600 dark:text-sky-400">١ كيلو = ١٠٠٠ جرام</span>
+                </div>
+                <div className="space-y-1.5 text-xs sm:text-[13px] font-bold">
+                  <div className="flex items-center justify-between">
+                    <span>٣٠٠ جرام بـ ٣٠ ج.م</span>
+                    <span className="font-black text-sky-700 dark:text-sky-300">١٠٠٫٠٠ ج.م / كيلو</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>٤٥٠ جرام بـ ٤٠ ج.م</span>
+                    <span className="font-black text-emerald-600 dark:text-emerald-400">٨٨٫٨٩ ج.م / كيلو</span>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-[#0a192f]/15 dark:border-slate-700 text-[11px] font-semibold text-[#0a192f]/80 dark:text-slate-300">
+                  {lang === 'ar'
+                    ? 'النتيجة: عبوة ٤٥٠ جرام توفر ١١٫١١ ج.م في كل كيلو مقارنة بعبوة ٣٠٠ جرام.'
+                    : 'Result: 450g pack saves 11.11 EGP per kg vs 300g pack.'}
+                </div>
               </div>
-              <p className="text-slate-500 dark:text-slate-400">
+
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 {lang === 'ar'
-                  ? 'فى المثال ده، عبوة ٤٥٠ جرام أوفر بكتير، حتى لو سعر العبوة الإجمالى أعلى!'
-                  : 'In this example, the 450g pack provides much better value despite having a higher ticket price!'}
+                  ? 'مهما اختلفت أحجام العبوات أو أسعارها، احسبلى يقارن بينها فورياً بدون الحاجة لحفظ معادلات معقدة.'
+                  : 'Regardless of pack sizes or prices, E7sbly instantly finds the best true value for you.'}
               </p>
             </div>
             <button
               onClick={() => setHelpModalOpen(false)}
-              className="w-full py-2.5 rounded-xl bg-[#3c89bd] hover:bg-[#32729e] text-white font-bold text-sm transition-colors"
+              className="w-full py-2.5 rounded-xl bg-[#0a192f] hover:bg-[#152a4a] text-white font-bold text-sm shadow-sm transition-colors"
             >
-              {lang === 'ar' ? 'تمام، فهمت' : 'Got it'}
+              {lang === 'ar' ? 'فهمت، شكراً' : 'Got it, thanks'}
             </button>
           </div>
         </div>
@@ -994,7 +967,7 @@ export default function App() {
       )}
 
       {/* Main Content Area */}
-      <main className="max-w-4xl mx-auto px-4 pt-6">
+      <main className="w-full max-w-2xl lg:max-w-3xl mx-auto px-2.5 sm:px-4 pt-4 sm:pt-6">
         {activeTab === 'verification' ? (
           /* QA Verification Dashboard */
           <div className="space-y-6 animate-slide-up-fade">
@@ -1303,29 +1276,80 @@ export default function App() {
               </button>
             </form>
 
-            {/* Empty Results Placeholder when no calculation has run yet */}
-            {!results && (
-              <div className={`p-8 rounded-2xl border text-center ${theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200'} shadow-xs word-in`} style={{ '--i': 1 } as React.CSSProperties}>
-                <div className="w-20 h-20 mx-auto rounded-3xl bg-sky-50 dark:bg-slate-800 flex items-center justify-center text-sky-500 mb-4 border border-sky-100 dark:border-slate-700 shadow-sm">
-                  <Scale className="w-10 h-10" />
+            {/* Calculation Method Box (طريقة الحساب) - White box, Dark Navy Border (#0a192f), Dark Navy Text (#0a192f) in Light Mode */}
+            <div className={`p-5 rounded-2xl border-2 transition-all font-sans shadow-xs word-in ${
+              theme === 'dark'
+                ? 'bg-slate-800/90 border-slate-700 text-slate-100'
+                : 'bg-white border-[#0a192f] text-[#0a192f]'
+            }`} style={{ '--i': 1 } as React.CSSProperties}>
+              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200 dark:border-slate-700">
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm ${
+                  theme === 'dark' ? 'bg-sky-500/20 text-sky-400' : 'bg-[#0a192f] text-white'
+                }`}>
+                  <Calculator className="w-4 h-4" />
                 </div>
-                <h3 className="font-extrabold text-lg mb-1">
-                  {lang === 'ar' ? 'الأوفر هيبان هنا' : 'Best Value Will Appear Here'}
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
-                  {lang === 'ar'
-                    ? 'دخل وزن وسعر منتجين على الأقل، وهنرتبهم لك حسب سعر الكيلو أو اللتر مع حساب التوفير بالجنيه.'
-                    : 'Enter weight/volume and price for at least 2 products to compare normalized value.'}
-                </p>
-                <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-[11px] font-mono text-slate-600 dark:text-slate-300">
-                  <span>{lang === 'ar' ? 'السعر' : 'Price'}</span>
-                  <span>÷</span>
-                  <span>{lang === 'ar' ? 'الوزن بالكيلو' : 'Weight (kg)'}</span>
-                  <span>=</span>
-                  <span className="font-bold text-sky-600 dark:text-sky-400">{lang === 'ar' ? 'سعر الكيلو' : 'Price / kg'}</span>
+                <div>
+                  <h3 className={`font-black text-sm sm:text-base ${
+                    theme === 'dark' ? 'text-white' : 'text-[#0a192f]'
+                  }`}>
+                    {lang === 'ar' ? 'طريقة الحساب والمعادلة' : 'Calculation Method & Formula'}
+                  </h3>
+                  <p className={`text-[11px] ${
+                    theme === 'dark' ? 'text-slate-400' : 'text-[#0a192f]/70'
+                  }`}>
+                    {lang === 'ar' ? 'كيف يحسب التطبيق المنتج الأوفر ويحدد الفائز بدقة؟' : 'How the app calculates the best value and rankings'}
+                  </p>
                 </div>
               </div>
-            )}
+
+              <div className="pt-3.5 space-y-3 text-xs leading-relaxed">
+                <div className={`p-3.5 rounded-xl border ${
+                  theme === 'dark'
+                    ? 'bg-slate-900/60 border-slate-700 text-sky-300'
+                    : 'bg-[#f4f7fc] border-[#0a192f]/20 text-[#0a192f]'
+                }`}>
+                  <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1">
+                    {lang === 'ar' ? 'المعادلة الرياضية المعيارية:' : 'Standardized Mathematical Formula:'}
+                  </div>
+                  <div className="text-sm font-black tracking-tight">
+                    {lang === 'ar'
+                      ? 'سعر الكيلو = (سعر العبوة ÷ وزن العبوة بالجرام) × ١٠٠٠'
+                      : 'Price / kg = (Pack Price ÷ Weight in grams) × 1000'}
+                  </div>
+                  <div className="text-xs font-bold mt-1 opacity-90">
+                    {lang === 'ar'
+                      ? 'سعر اللتر = سعر العبوة ÷ الحجم باللتر'
+                      : 'Price / Liter = Pack Price ÷ Volume in Liters'}
+                  </div>
+                </div>
+
+                <div className={`p-3 rounded-xl border ${
+                  theme === 'dark'
+                    ? 'bg-slate-900/40 border-slate-700 text-slate-200'
+                    : 'bg-white border-[#0a192f]/20 text-[#0a192f]'
+                } space-y-2`}>
+                  <div className="font-extrabold text-xs">
+                    {lang === 'ar' ? 'مثال عملي مباشر:' : 'Direct Practical Example:'}
+                  </div>
+                  <div className="flex items-center justify-between text-xs font-bold">
+                    <span>{lang === 'ar' ? 'عبوة ٣٠٠ جرام بسعر ٣٠ ج.م:' : '300g pack at 30 EGP:'}</span>
+                    <span className="font-black text-sky-600 dark:text-sky-300">١٠٠٫٠٠ ج.م / كيلو</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs font-bold">
+                    <span>{lang === 'ar' ? 'عبوة ٤٥٠ جرام بسعر ٤٠ ج.م:' : '450g pack at 40 EGP:'}</span>
+                    <span className="font-black text-emerald-600 dark:text-emerald-400">٨٨٫٨٩ ج.م / كيلو (الأوفر)</span>
+                  </div>
+                </div>
+
+                <p className={`text-[11px] font-medium leading-relaxed ${
+                  theme === 'dark' ? 'text-slate-300' : 'text-[#0a192f]/80'
+                }`}>
+                  {lang === 'ar'
+                    ? 'في هذا المثال، شراء عبوة ٤٥٠ جرام يوفر لك ١١٫١١ ج.م في كل كيلو تشتريه، بالرغم من أن سعر العبوة الفردي أعلى.'
+                    : 'In this example, buying the 450g pack saves 11.11 EGP per kg, even though the sticker price is higher.'}
+                </p>
+              </div>
+            </div>
 
             {/* Results Section (Requirements 1, 5, 8) */}
             {results && (
