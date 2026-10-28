@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Menu, X, Sun, Moon, Globe, Download, CheckCircle2, RotateCcw,
+  Menu, Settings, X, Sun, Moon, Globe, Download, CheckCircle2, RotateCcw,
   Plus, Minus, Trash2, ArrowLeft, ArrowRight, ShieldCheck,
   Scale, Calculator, Sparkles, ExternalLink, Info, AlertTriangle,
   Trophy, Crown, Tag, Coins, TrendingDown, Award, User, HelpCircle,
@@ -425,9 +425,10 @@ export default function App() {
             <button
               onClick={() => setDrawerOpen(true)}
               className={`p-2 rounded-xl border transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
-              aria-label={lang === 'ar' ? 'القائمة الجانبية' : 'Side Navigation Menu'}
+              aria-label={lang === 'ar' ? 'الإعدادات' : 'Settings'}
+              title={lang === 'ar' ? 'الإعدادات' : 'Settings'}
             >
-              <Menu className="w-5 h-5" />
+              <Settings className="w-5 h-5" />
             </button>
 
             <div className="flex items-center gap-2 font-black text-xl tracking-tight select-none">
@@ -436,7 +437,6 @@ export default function App() {
               </div>
               <span className="text-[#1f347d] dark:text-white">
                 {lang === 'ar' ? 'احسبلى' : 'E7sbly'}
-                <span className="text-sky-500">.</span>
               </span>
             </div>
           </div>
@@ -465,7 +465,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Side Navigation Drawer (Requirement 6) */}
+      {/* Settings Navigation Drawer */}
       {drawerOpen && (
         <div className="fixed inset-0 z-50 flex animate-slide-up-fade">
           <div
@@ -476,9 +476,9 @@ export default function App() {
             <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-3 font-bold text-lg">
                 <div className="w-8 h-8 rounded-lg bg-[#3c89bd] text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                  <Scale className="w-4 h-4" />
+                  <Settings className="w-4 h-4" />
                 </div>
-                <span>{lang === 'ar' ? 'القائمة الجانبية' : 'Side Navigation'}</span>
+                <span>{lang === 'ar' ? 'الإعدادات' : 'Settings'}</span>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
@@ -489,31 +489,6 @@ export default function App() {
             </div>
 
             <div className="flex-1 overflow-y-auto py-6 space-y-6">
-              {/* Clean Final App Download Section (E7sbly-Final.apk) */}
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/30">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-                    <Download className="w-4 h-4" />
-                    <span>{lang === 'ar' ? 'تطبيق احسبلى للأندرويد' : 'E7sbly Android App'}</span>
-                  </span>
-                  <span className="text-[10px] bg-emerald-600 text-white font-black px-2 py-0.5 rounded-full shadow-xs">
-                    Final APK
-                  </span>
-                </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
-                  {lang === 'ar'
-                    ? 'النسخة الكاملة النهائية الجاهزة للتثبيت المباشر على الهاتف وإرسالها للتجربة.'
-                    : 'The complete final release APK ready to install and test on Android phones.'}
-                </p>
-                <a
-                  href="/E7sbly-Final.apk"
-                  download="E7sbly-Final.apk"
-                  className="w-full py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black text-xs flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-95"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>{lang === 'ar' ? 'تحميل E7sbly-Final.apk' : 'Download E7sbly-Final.apk'}</span>
-                </a>
-              </div>
 
               {/* Calculation Method Button in Drawer */}
               <div>
@@ -1071,7 +1046,10 @@ export default function App() {
           /* Interactive Comparison Application */
           <div className="space-y-6 animate-slide-up-fade">
             {/* Hero Banner */}
-            <div className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} shadow-xs`}>
+            <div
+              style={{ '--i': 0 } as React.CSSProperties}
+              className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} shadow-xs word-in`}
+            >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-sky-400/10 border border-sky-400/30 flex items-center justify-center flex-shrink-0 animate-float-gentle">
@@ -1114,7 +1092,7 @@ export default function App() {
             )}
 
             {/* Products Form */}
-            <form onSubmit={handleCalculate} className="space-y-4">
+            <form onSubmit={handleCalculate} style={{ '--i': 1 } as React.CSSProperties} className="space-y-4 word-in">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                   <Tag className="w-3.5 h-3.5 text-sky-500" />
@@ -1508,8 +1486,8 @@ export default function App() {
                     onClick={handleBackToMenu}
                     className={`py-3.5 rounded-xl border text-sm font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-[0.99] ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-50 text-[#1f347d] shadow-xs'}`}
                   >
-                    <Menu className="w-4 h-4 text-sky-500" />
-                    <span>{lang === 'ar' ? 'الرجوع للقائمة' : 'Back to Menu'}</span>
+                    <Settings className="w-4 h-4 text-sky-500" />
+                    <span>{lang === 'ar' ? 'الإعدادات' : 'Settings'}</span>
                   </button>
 
                   <button

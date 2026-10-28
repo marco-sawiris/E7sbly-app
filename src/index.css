@@ -89,8 +89,8 @@ input, button, select, textarea, optgroup {
 }
 
 /* ============================================================
-   حركة wordIn الأساسية (من المرفق المعطى)
-   تظهر مرة واحدة فقط بدون تكرار ثم تثبت (Once & settled)
+   كود الحركة الأساسي (wordIn) بالمللي كما في الكود المزود
+   يشتغل لمرة واحدة فقط عند الظهور الأول ثم يقف (One-time only & settle)
    ============================================================ */
 @keyframes wordIn {
   from {
@@ -105,26 +105,26 @@ input, button, select, textarea, optgroup {
   }
 }
 
-/* تطبيق حركة wordIn مع التثبيت التام */
+/* تطبيق الحركة لمرة واحدة فقط ثم الثبات التام */
 .word-in {
   perspective: 800px;
-  transform-origin: center bottom;
-  animation: wordIn 800ms var(--ease-spring) both;
-  animation-delay: calc(var(--i, 0) * 110ms);
+  animation: wordIn 900ms var(--ease-spring) 1 normal forwards;
+  animation-delay: calc(var(--i, 0) * 150ms);
+  animation-fill-mode: forwards;
 }
 
 .word-in-fast {
   perspective: 800px;
-  transform-origin: center bottom;
-  animation: wordIn 650ms var(--ease-spring) both;
-  animation-delay: calc(var(--i, 0) * 80ms);
+  animation: wordIn 700ms var(--ease-spring) 1 normal forwards;
+  animation-delay: calc(var(--i, 0) * 100ms);
+  animation-fill-mode: forwards;
 }
 
 /* Modal dialog animation using wordIn */
 .modal-word-in {
   perspective: 900px;
-  transform-origin: center center;
-  animation: wordIn 750ms var(--ease-spring) both;
+  animation: wordIn 900ms var(--ease-spring) 1 normal forwards;
+  animation-fill-mode: forwards;
 }
 
 /* Card hover elevations */
