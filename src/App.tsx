@@ -49,6 +49,7 @@ export default function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [developerModalOpen, setDeveloperModalOpen] = useState(false);
+  const [aboutAppModalOpen, setAboutAppModalOpen] = useState(false);
   const [helpModalOpen, setHelpModalOpen] = useState(false);
   const [driveModalOpen, setDriveModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'app' | 'verification'>('app');
@@ -433,9 +434,12 @@ export default function App() {
 
             <div className="flex items-center gap-2 font-black text-xl tracking-tight select-none">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-black text-sm shadow-md hover:scale-105 active:scale-95 transition-transform">
-                <Scale className="w-5 h-5 text-sky-200" />
+                <Calculator className="w-5 h-5 text-white" />
               </div>
-              <span className="text-[#1f347d] dark:text-white">
+              <span
+                style={{ color: theme === 'dark' ? '#ffffff' : '#0a192f' }}
+                className="font-black text-xl tracking-tight text-[#0a192f] dark:text-white"
+              >
                 {lang === 'ar' ? 'احسبلى' : 'E7sbly'}
               </span>
             </div>
@@ -490,22 +494,86 @@ export default function App() {
 
             <div className="flex-1 overflow-y-auto py-6 space-y-6">
 
-              {/* Calculation Method Button in Drawer */}
+              {/* Calculation Method Box in Drawer (Direct Copy of Formula & Logic) */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  {lang === 'ar' ? 'المعادلة والحساب' : 'Formula & Logic'}
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+                  {lang === 'ar' ? 'طريقة الحساب والمعادلة' : 'Calculation Method & Formula'}
                 </h3>
+                <div className={`p-4 rounded-2xl border-2 transition-all font-sans shadow-xs space-y-2.5 ${
+                  theme === 'dark'
+                    ? 'bg-slate-800/95 border-slate-700 text-slate-100'
+                    : 'bg-white border-[#0a192f] text-[#0a192f]'
+                }`}>
+                  <div className="flex items-center gap-2 pb-2 border-b border-[#0a192f]/20 dark:border-slate-700">
+                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
+                      theme === 'dark' ? 'bg-sky-500/20 text-sky-400' : 'bg-[#0a192f] text-white'
+                    }`}>
+                      <Calculator className="w-3.5 h-3.5" />
+                    </div>
+                    <h4 className={`font-black text-xs sm:text-sm ${
+                      theme === 'dark' ? 'text-white' : 'text-[#0a192f]'
+                    }`}>
+                      {lang === 'ar' ? 'معادلة الحساب الموحدة' : 'Standardized Calculation'}
+                    </h4>
+                  </div>
+
+                  <div className="space-y-2 text-xs leading-relaxed">
+                    <div className={`p-2.5 rounded-xl border ${
+                      theme === 'dark'
+                        ? 'bg-slate-900/60 border-slate-700 text-sky-300'
+                        : 'bg-[#f4f7fc] border-[#0a192f]/20 text-[#0a192f]'
+                    }`}>
+                      <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-0.5">
+                        {lang === 'ar' ? 'المعادلة الأساسية:' : 'Core Formula:'}
+                      </div>
+                      <div className="text-xs font-black">
+                        {lang === 'ar'
+                          ? 'سعر الكيلو = (سعر العبوة ÷ وزن العبوة بالجرام) × ١٠٠٠'
+                          : 'Price/kg = (Price ÷ Weight in grams) × 1000'}
+                      </div>
+                      <div className="text-[11px] font-bold mt-1 opacity-90">
+                        {lang === 'ar'
+                          ? 'سعر اللتر = سعر العبوة ÷ الحجم باللتر'
+                          : 'Price/Liter = Price ÷ Volume in Liters'}
+                      </div>
+                    </div>
+
+                    <div className={`p-2.5 rounded-xl border ${
+                      theme === 'dark'
+                        ? 'bg-slate-900/40 border-slate-700 text-slate-200'
+                        : 'bg-white border-[#0a192f]/20 text-[#0a192f]'
+                    } space-y-1 text-[11px] font-bold`}>
+                      <div className="flex items-center justify-between">
+                        <span>٣٠٠ جرام بـ ٣٠ ج.م</span>
+                        <span className="font-black text-sky-600 dark:text-sky-300">١٠٠ ج.م / كيلو</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>٤٥٠ جرام بـ ٤٠ ج.م</span>
+                        <span className="font-black text-emerald-600 dark:text-emerald-400">٨٨٫٨٩ ج.م / كيلو (الأوفر)</span>
+                      </div>
+                    </div>
+
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug pt-1">
+                      {lang === 'ar'
+                        ? 'يقوم التطبيق بحساب السعر المعياري تلقائياً وترتيب المنتجات من الأوفر إلى الأغلى.'
+                        : 'Calculates unit prices automatically and sorts products from best value to highest.'}
+                    </div>
+                  </div>
+                </div>
+
                 <button
                   type="button"
                   onClick={() => {
                     setDrawerOpen(false);
                     setHelpModalOpen(true);
                   }}
-                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-sm font-semibold text-start transition-colors ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
+                  className={`mt-2 w-full flex items-center justify-between p-2.5 rounded-xl border text-xs font-bold text-start transition-colors ${
+                    theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-sky-300' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#3c89bd]'
+                  }`}
                 >
-                  <div className="flex items-center gap-2">
-                    <HelpCircle className="w-4 h-4 text-sky-500" />
-                    <span>{lang === 'ar' ? 'طريقة الحساب' : 'Calculation Method'}</span>
+                  <div className="flex items-center gap-1.5">
+                    <HelpCircle className="w-3.5 h-3.5" />
+                    <span>{lang === 'ar' ? 'عرض تفاصيل المعادلة في نافذة كاملة' : 'View Full Formula in Modal'}</span>
                   </div>
                   <Info className="w-3.5 h-3.5 text-slate-400" />
                 </button>
@@ -557,21 +625,43 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Developer Info Button */}
+              {/* About App Button */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  {lang === 'ar' ? 'المطور والمعلومات' : 'Developer & Info'}
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+                  {lang === 'ar' ? 'عن التطبيق' : 'About App'}
                 </h3>
                 <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setAboutAppModalOpen(true);
+                  }}
+                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-sm font-semibold text-start transition-colors ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Info className="w-4 h-4 text-sky-500" />
+                    <span>{lang === 'ar' ? 'عن التطبيق' : 'About App'}</span>
+                  </div>
+                  <Info className="w-3.5 h-3.5 text-slate-400" />
+                </button>
+              </div>
+
+              {/* Developer Info Button */}
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+                  {lang === 'ar' ? 'عن المطور' : 'About Developer'}
+                </h3>
+                <button
+                  type="button"
                   onClick={() => {
                     setDrawerOpen(false);
                     setDeveloperModalOpen(true);
                   }}
                   className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-sm font-semibold text-start transition-colors ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <User className="w-4 h-4 text-sky-500" />
-                    <span>{lang === 'ar' ? 'عن التطبيق والمطور' : 'About App & Developer'}</span>
+                    <span>{lang === 'ar' ? 'عن المطور' : 'About Developer'}</span>
                   </div>
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
                 </button>
@@ -585,7 +675,71 @@ export default function App() {
         </div>
       )}
 
-      {/* Developer Information Modal (Matched to User's Reference Screenshot) */}
+      {/* About Application Modal (Dedicated exclusively to App info) */}
+      {aboutAppModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"
+            onClick={() => setAboutAppModalOpen(false)}
+          />
+          <div
+            className={`relative z-10 w-full max-w-[540px] rounded-[28px] sm:rounded-[32px] p-6 sm:p-8 shadow-2xl modal-word-in ${
+              theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border border-slate-800' : 'bg-white text-[#1f347d]'
+            }`}
+          >
+            {/* Header Titles */}
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-bold text-sm shadow-md">
+                  <Calculator className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-black text-[#1f347d] dark:text-sky-300">
+                    {lang === 'ar' ? 'عن التطبيق' : 'About Application'}
+                  </h2>
+                  <p className="text-xs font-bold text-sky-600 dark:text-sky-400">
+                    {lang === 'ar' ? 'احسبلى · الإصدار ٢' : 'E7sbly · Version 2'}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setAboutAppModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:scale-110 active:scale-95"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Content (exact user text) */}
+            <div className="py-5 space-y-4 text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-200 font-medium">
+              <div className="p-4 rounded-2xl bg-sky-50/60 dark:bg-slate-800/80 border border-sky-100 dark:border-slate-700 leading-relaxed">
+                {lang === 'ar'
+                  ? 'تطبيق أندرويد يعمل بدون إنترنت لمقارنة القيمة الفعلية من خلال إدخال وزن وسعر من منتجين إلى خمسة، وحساب سعر الكيلو وترتيب المنتجات من الأرخص إلى الأغلى، مع دعم الجرام والكيلوجرام واللتر مع توحيد العملة في المقارنة.'
+                  : 'An offline Android application to compare actual value by inputting weight and price for 2 to 5 products, calculating normalized price per unit, and ranking products from best value to highest, supporting grams, kilograms, and liters with unified currency.'}
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 leading-relaxed">
+                {lang === 'ar'
+                  ? 'الإصدار 2، يدعم Android 10 فأحدث، ويوفر العربية والإنجليزية وتطبيقها على اتجاه الواجهة والأرقام والنتائج والتنبيهات، مع الاحتفاظ ببيانات المنتجات والوزن المطلوب.'
+                  : 'Version 2 supports Android 10 and above, offering full Arabic and English support applied to interface layout, numbers, results, and alerts, while preserving product data and target weight.'}
+              </div>
+            </div>
+
+            {/* Close button */}
+            <div className="mt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setAboutAppModalOpen(false)}
+                className="text-[#3c89bd] hover:text-[#2c6e9b] dark:text-sky-400 font-extrabold text-base sm:text-lg transition-colors px-2 py-1"
+              >
+                {lang === 'ar' ? 'إغلاق' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Developer Information Modal (Dedicated exclusively to Marco Sawiris) */}
       {developerModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
           <div
@@ -600,19 +754,8 @@ export default function App() {
             {/* Header Titles */}
             <div className="text-start space-y-1 word-in" style={{ '--i': 0 } as React.CSSProperties}>
               <h2 className="text-xl sm:text-2xl font-black text-[#1f347d] dark:text-sky-300">
-                {lang === 'ar' ? 'عن التطبيق والمطور' : 'About App & Developer'}
-              </h2>
-              <h3 className="text-base sm:text-lg font-black text-[#1f347d] dark:text-slate-100">
-                {lang === 'ar' ? 'احسبلى · الإصدار ٢' : 'E7sbly · Version 2'}
-              </h3>
-              <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed pt-0.5">
-                {lang === 'ar'
-                  ? 'قارن لحد ٥ منتجات حسب سعر الكيلو، واختار الأوفر. شغال بدون إنترنت، وبياناتك على جهازك.'
-                  : 'Compare up to 5 products by price per kg, and choose the best value. Works offline, data stays on device.'}
-              </p>
-              <div className="text-xs sm:text-sm font-bold text-[#1f347d] dark:text-sky-400 pt-3">
                 {lang === 'ar' ? 'عن المطور' : 'About Developer'}
-              </div>
+              </h2>
             </div>
 
             {/* Developer Name & Title (always LTR as shown in reference) */}
@@ -625,7 +768,7 @@ export default function App() {
               </p>
             </div>
 
-            {/* Developer Banner Card (Text left, Cutout portrait right with NO white padding underneath) */}
+            {/* Developer Banner Card - Image framed flush with border so it doesn't look abruptly cut */}
             <div
               dir="ltr"
               style={{ '--i': 2 } as React.CSSProperties}
@@ -633,21 +776,21 @@ export default function App() {
                 theme === 'dark'
                   ? 'border-slate-700 bg-slate-800/90'
                   : 'border-slate-200 bg-white'
-              } shadow-sm overflow-hidden flex items-stretch mt-3 hover-lift word-in`}
+              } shadow-sm overflow-hidden flex items-stretch mt-3 hover-lift word-in relative min-h-[175px]`}
             >
               {/* Bio copy on left */}
-              <div className="flex-1 p-5 sm:p-6 flex items-center">
+              <div className="flex-1 p-5 sm:p-6 flex items-center z-10">
                 <p className="text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200 leading-snug">
                   20+ years of design experience across Egypt and Qatar, creating brand identities, campaigns, packaging and motion graphics.
                 </p>
               </div>
 
-              {/* Marco Sawiris portrait on right - sits flush at bottom edge with zero gap */}
-              <div className="w-[38%] sm:w-[36%] flex-shrink-0 flex items-end justify-center self-end overflow-hidden m-0 p-0">
+              {/* Marco Sawiris portrait on right - framed flush with card border */}
+              <div className="w-[42%] sm:w-[38%] flex-shrink-0 flex items-end justify-end overflow-hidden m-0 p-0 relative self-stretch">
                 <img
                   src="/developer-reference.png"
                   alt="Marco Sawiris"
-                  className="w-full h-auto max-h-[220px] object-contain object-bottom block m-0 p-0 align-bottom select-none pointer-events-none"
+                  className="w-full h-full object-cover object-bottom block m-0 p-0 select-none pointer-events-none rounded-r-2xl"
                 />
               </div>
             </div>
@@ -1048,38 +1191,45 @@ export default function App() {
             {/* Hero Banner */}
             <div
               style={{ '--i': 0 } as React.CSSProperties}
-              className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} shadow-xs word-in`}
+              className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} shadow-xs word-in space-y-4`}
             >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-sky-400/10 border border-sky-400/30 flex items-center justify-center flex-shrink-0 animate-float-gentle">
-                    <Scale className="w-6 h-6 text-sky-500" />
-                  </div>
-                  <div>
-                    <h1 className="text-xl sm:text-2xl font-black">
-                      {lang === 'ar' ? 'نفس المنتج، أنهى أوفر؟' : 'Same Product, Better Value?'}
-                    </h1>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      {lang === 'ar' ? 'قارن الوزن والسعر، واعرف التوفير بالجنيه المصرى فى لحظة.' : 'Compare weight or volume and price to calculate real savings in EGP.'}
-                    </p>
-                  </div>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-sky-400/10 border border-sky-400/30 flex items-center justify-center flex-shrink-0 animate-float-gentle">
+                  <Calculator className="w-6 h-6 text-sky-500" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handleLoadExample}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>{lang === 'ar' ? 'جرب بمثال' : 'Try Example'}</span>
-                  </button>
-                  <button
-                    onClick={handleStartOver}
-                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-500 hover:text-rose-500 transition-colors flex items-center gap-1"
-                  >
-                    <RotateCcw className="w-3 h-3" />
-                    <span>{lang === 'ar' ? 'تفريغ' : 'Clear'}</span>
-                  </button>
+                <div>
+                  <h1 className="text-xl sm:text-2xl font-black text-[#0a192f] dark:text-white">
+                    {lang === 'ar' ? 'نفس المنتج، أنهى أوفر؟' : 'Same Product, Better Value?'}
+                  </h1>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    {lang === 'ar' ? 'قارن الوزن والسعر، واعرف التوفير بالجنيه المصرى فى لحظة.' : 'Compare weight or volume and price to calculate real savings in EGP.'}
+                  </p>
                 </div>
+              </div>
+
+              {/* Action Buttons: One at start of text, other at end of text for balanced alignment */}
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-3 w-full">
+                <button
+                  type="button"
+                  onClick={handleLoadExample}
+                  className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${
+                    theme === 'dark'
+                      ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400'
+                      : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span>{lang === 'ar' ? 'جرب بمثال' : 'Try Example'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleStartOver}
+                  className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 hover:text-rose-500 hover:border-rose-300 dark:hover:border-rose-900/60 bg-transparent hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all flex items-center gap-1.5 active:scale-95"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>{lang === 'ar' ? 'تفريغ' : 'Clear'}</span>
+                </button>
               </div>
             </div>
 
@@ -1483,11 +1633,13 @@ export default function App() {
                 >
                   <button
                     type="button"
-                    onClick={handleBackToMenu}
+                    onClick={() => {
+                      document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
                     className={`py-3.5 rounded-xl border text-sm font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-[0.99] ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-50 text-[#1f347d] shadow-xs'}`}
                   >
-                    <Settings className="w-4 h-4 text-sky-500" />
-                    <span>{lang === 'ar' ? 'الإعدادات' : 'Settings'}</span>
+                    <ArrowLeft className="w-4 h-4 text-sky-500 rtl:rotate-180" />
+                    <span>{lang === 'ar' ? 'رجوع للمنتجات' : 'Back to Products'}</span>
                   </button>
 
                   <button
