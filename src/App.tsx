@@ -6,6 +6,7 @@ import {
   Trophy, Crown, Tag, Coins, TrendingDown, Award, User, HelpCircle,
   UploadCloud, Check, Loader2, HardDrive, LogOut
 } from 'lucide-react';
+import developerReferencePhoto from './developer-reference.png';
 import {
   initDriveAuth,
   signInWithGoogle,
@@ -418,38 +419,38 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen w-full overflow-x-hidden ${theme === 'dark' ? 'bg-[#0b1329] text-slate-100' : 'bg-[#f4f7fc] text-[#1f347d]'} transition-colors duration-200 pb-16`}>
+    <div className={`min-h-screen w-full overflow-x-hidden ${theme === 'dark' ? 'bg-[#0b1329] text-slate-100' : 'bg-[#f4f7fc] text-[#1f347d]'} transition-colors duration-200 pb-10`}>
       {/* Top Header */}
-      <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${theme === 'dark' ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-200'} px-3 sm:px-4 py-3 shadow-xs`}>
-        <div className="w-full max-w-2xl lg:max-w-3xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2.5 sm:gap-3">
+      <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${theme === 'dark' ? 'bg-[#0f172a]/95 border-slate-800' : 'bg-white/95 border-slate-200'} px-3 sm:px-4 py-2 shadow-xs`}>
+        <div className="w-full max-w-xl sm:max-w-2xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setDrawerOpen(true)}
-              className={`p-2 rounded-xl border transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
+              className={`p-1.5 rounded-lg border transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#1f347d]'}`}
               aria-label={lang === 'ar' ? 'الإعدادات' : 'Settings'}
               title={lang === 'ar' ? 'الإعدادات' : 'Settings'}
             >
-              <Settings className="w-5 h-5" />
+              <Settings className="w-4.5 h-4.5" />
             </button>
 
-            <div className="flex items-center gap-2 font-black text-xl tracking-tight select-none">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-black text-sm shadow-md hover:scale-105 active:scale-95 transition-transform">
-                <Calculator className="w-5 h-5 text-white" />
+            <div className="flex items-center gap-2 font-black text-lg tracking-tight select-none">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-black text-sm shadow-md hover:scale-105 active:scale-95 transition-transform">
+                <Calculator className="w-4.5 h-4.5 text-white" />
               </div>
               <span
                 style={{ color: theme === 'dark' ? '#ffffff' : '#0a192f' }}
-                className="font-black text-xl tracking-tight text-[#0a192f] dark:text-white"
+                className="font-black text-lg sm:text-xl tracking-tight text-[#0a192f] dark:text-white"
               >
                 {lang === 'ar' ? 'احسبلى' : 'E7sbly'}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1.5">
             {/* Quick Theme Toggle */}
             <button
               onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-              className={`p-2 rounded-xl border flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-amber-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'}`}
+              className={`p-1.5 rounded-lg border flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-amber-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'}`}
               title={theme === 'dark' ? (lang === 'ar' ? 'الوضع الفاتح' : 'Light Mode') : (lang === 'ar' ? 'الوضع الداكن' : 'Dark Mode')}
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
@@ -459,7 +460,7 @@ export default function App() {
             {/* Help / Calculation Method Button */}
             <button
               onClick={() => setHelpModalOpen(true)}
-              className={`p-2 rounded-xl border flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'}`}
+              className={`p-1.5 rounded-lg border flex items-center justify-center transition-all hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400' : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#1f347d]'}`}
               title={lang === 'ar' ? 'طريقة الحساب' : 'How it works'}
               aria-label={lang === 'ar' ? 'طريقة الحساب' : 'How it works'}
             >
@@ -748,22 +749,22 @@ export default function App() {
           />
           <div
             className={`relative z-10 w-full max-w-[540px] rounded-[28px] sm:rounded-[32px] p-6 sm:p-8 shadow-2xl modal-word-in ${
-              theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border border-slate-800' : 'bg-white text-[#1f347d]'
+              theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border border-slate-800' : 'bg-white text-[#0a192f] border border-slate-200'
             }`}
           >
             {/* Header Titles */}
             <div className="text-start space-y-1 word-in" style={{ '--i': 0 } as React.CSSProperties}>
-              <h2 className="text-xl sm:text-2xl font-black text-[#1f347d] dark:text-sky-300">
+              <h2 className="text-xl sm:text-2xl font-black text-[#0a192f] dark:text-sky-300">
                 {lang === 'ar' ? 'عن المطور' : 'About Developer'}
               </h2>
             </div>
 
             {/* Developer Name & Title (always LTR as shown in reference) */}
             <div dir="ltr" className="text-start mt-3 mb-2.5 word-in" style={{ '--i': 1 } as React.CSSProperties}>
-              <h3 className="text-2xl sm:text-[28px] font-black text-[#1f347d] dark:text-white tracking-tight leading-tight">
+              <h3 className="text-2xl sm:text-[28px] font-black text-[#0a192f] dark:text-white tracking-tight leading-tight">
                 MARCO SAWIRIS
               </h3>
-              <p className="text-xs sm:text-sm font-bold text-[#3c89bd] dark:text-sky-400 mt-0.5">
+              <p className="text-xs sm:text-sm font-bold text-[#1f347d] dark:text-sky-400 mt-0.5">
                 Senior Graphic Designer &amp; Art Director
               </p>
             </div>
@@ -775,12 +776,12 @@ export default function App() {
               className={`rounded-2xl border ${
                 theme === 'dark'
                   ? 'border-slate-700 bg-slate-800/90'
-                  : 'border-slate-200 bg-white'
+                  : 'border-slate-200 bg-slate-50'
               } shadow-sm overflow-hidden flex items-stretch mt-3 hover-lift word-in relative min-h-[175px]`}
             >
               {/* Bio copy on left */}
               <div className="flex-1 p-5 sm:p-6 flex items-center z-10">
-                <p className="text-sm sm:text-base font-bold text-slate-700 dark:text-slate-200 leading-snug">
+                <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 leading-snug">
                   20+ years of design experience across Egypt and Qatar, creating brand identities, campaigns, packaging and motion graphics.
                 </p>
               </div>
@@ -788,7 +789,13 @@ export default function App() {
               {/* Marco Sawiris portrait on right - framed flush with card border */}
               <div className="w-[42%] sm:w-[38%] flex-shrink-0 flex items-end justify-end overflow-hidden m-0 p-0 relative self-stretch">
                 <img
-                  src="/developer-reference.png"
+                  src={developerReferencePhoto}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.includes('developer-reference.png')) {
+                      target.src = './developer-reference.png';
+                    }
+                  }}
                   alt="Marco Sawiris"
                   className="w-full h-full object-cover object-bottom block m-0 p-0 select-none pointer-events-none rounded-r-2xl"
                 />
@@ -802,11 +809,11 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 dir="ltr"
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#3c89bd] hover:underline hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#1f347d] hover:text-[#0a192f] dark:text-sky-400 dark:hover:text-sky-300 hover:underline transition-colors"
               >
-                <Globe className="w-4 h-4 text-[#3c89bd]" />
+                <Globe className="w-4 h-4 text-[#1f347d] dark:text-sky-400" />
                 <span>marco-sawiris.github.io</span>
-                <ExternalLink className="w-3.5 h-3.5 text-[#3c89bd]/70" />
+                <ExternalLink className="w-3.5 h-3.5 opacity-70" />
               </a>
             </div>
 
@@ -815,7 +822,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setDeveloperModalOpen(false)}
-                className="text-[#3c89bd] hover:text-[#2c6e9b] dark:text-sky-400 font-extrabold text-base sm:text-lg transition-colors px-2 py-1"
+                className="text-[#1f347d] hover:text-[#0a192f] dark:text-sky-400 dark:hover:text-sky-300 font-extrabold text-base sm:text-lg transition-colors px-2 py-1"
               >
                 {lang === 'ar' ? 'إغلاق' : 'Close'}
               </button>
@@ -1085,7 +1092,7 @@ export default function App() {
       )}
 
       {/* Main Content Area */}
-      <main className="w-full max-w-2xl lg:max-w-3xl mx-auto px-2.5 sm:px-4 pt-4 sm:pt-6">
+      <main className="w-full max-w-xl sm:max-w-2xl mx-auto px-2.5 sm:px-4 pt-2 sm:pt-3">
         {activeTab === 'verification' ? (
           /* QA Verification Dashboard */
           <div className="space-y-6 animate-slide-up-fade">
@@ -1187,47 +1194,49 @@ export default function App() {
           </div>
         ) : (
           /* Interactive Comparison Application */
-          <div className="space-y-6 animate-slide-up-fade">
-            {/* Hero Banner */}
+          <div className="space-y-4 animate-slide-up-fade">
+            {/* Hero Banner - Compact & Snug */}
             <div
               style={{ '--i': 0 } as React.CSSProperties}
-              className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} shadow-xs word-in space-y-4`}
+              className={`p-3 sm:p-3.5 rounded-xl border ${
+                theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
+              } shadow-xs word-in space-y-2.5`}
             >
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-sky-400/10 border border-sky-400/30 flex items-center justify-center flex-shrink-0 animate-float-gentle">
-                  <Calculator className="w-6 h-6 text-sky-500" />
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-500/20 to-sky-400/10 border border-sky-400/30 flex items-center justify-center flex-shrink-0">
+                  <Calculator className="w-4 h-4 text-sky-500" />
                 </div>
                 <div>
-                  <h1 className="text-xl sm:text-2xl font-black text-[#0a192f] dark:text-white">
+                  <h1 className="text-sm sm:text-base font-black text-[#0a192f] dark:text-white leading-tight">
                     {lang === 'ar' ? 'نفس المنتج، أنهى أوفر؟' : 'Same Product, Better Value?'}
                   </h1>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                     {lang === 'ar' ? 'قارن الوزن والسعر، واعرف التوفير بالجنيه المصرى فى لحظة.' : 'Compare weight or volume and price to calculate real savings in EGP.'}
                   </p>
                 </div>
               </div>
 
-              {/* Action Buttons: One at start of text, other at end of text for balanced alignment */}
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-3 w-full">
+              {/* Action Buttons: Try Example at start of text, Clear at end of text */}
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2.5 w-full">
                 <button
                   type="button"
                   onClick={handleLoadExample}
-                  className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${
+                  className={`px-3 py-1 rounded-lg border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${
                     theme === 'dark'
                       ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400'
-                      : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#3c89bd]'
+                      : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#1f347d]'
                   }`}
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <Sparkles className="w-3 h-3 text-amber-500" />
                   <span>{lang === 'ar' ? 'جرب بمثال' : 'Try Example'}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={handleStartOver}
-                  className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-500 hover:text-rose-500 hover:border-rose-300 dark:hover:border-rose-900/60 bg-transparent hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all flex items-center gap-1.5 active:scale-95"
+                  className="px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-rose-500 hover:border-rose-300 dark:hover:border-rose-900/60 bg-transparent hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all flex items-center gap-1.5 active:scale-95"
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="w-3 h-3" />
                   <span>{lang === 'ar' ? 'تفريغ' : 'Clear'}</span>
                 </button>
               </div>
@@ -1235,36 +1244,40 @@ export default function App() {
 
             {/* Error Banner */}
             {generalError && (
-              <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs flex items-start gap-2.5 animate-slide-up-fade">
+              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs flex items-start gap-2 animate-slide-up-fade">
                 <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-500" />
                 <span>{generalError}</span>
               </div>
             )}
 
-            {/* Products Form */}
-            <form onSubmit={handleCalculate} style={{ '--i': 1 } as React.CSSProperties} className="space-y-4 word-in">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                  <Tag className="w-3.5 h-3.5 text-sky-500" />
+            {/* Products Form - Compact & Snug */}
+            <form onSubmit={handleCalculate} style={{ '--i': 1 } as React.CSSProperties} className="space-y-2.5 word-in">
+              <div className="flex items-center justify-between px-0.5">
+                <h2 className="text-xs font-black uppercase tracking-wider text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                  <Tag className="w-3 h-3 text-sky-500" />
                   <span>{lang === 'ar' ? 'المنتجات للمقارنة' : 'Products to Compare'}</span>
-                  <span className="text-xs text-sky-500 font-bold">({products.length}/5)</span>
+                  <span className="text-xs text-sky-600 dark:text-sky-400 font-bold">({products.length}/5)</span>
                 </h2>
-                <span className="text-xs text-slate-400">
+                <span className="text-[11px] text-slate-400 font-medium">
                   {lang === 'ar' ? 'يمكن مقارنة ٢ إلى ٥ منتجات' : '2 to 5 products'}
                 </span>
               </div>
 
               {/* Product Cards */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {products.map((p, idx) => (
                   <div
                     key={p.id}
-                    className={`p-4 rounded-2xl border transition-all ${theme === 'dark' ? 'bg-slate-900 border-slate-800 focus-within:border-sky-500' : 'bg-white border-slate-200 focus-within:border-[#3c89bd]'} shadow-xs`}
+                    className={`p-2.5 sm:p-3 rounded-xl border transition-all ${
+                      theme === 'dark'
+                        ? 'bg-slate-900 border-slate-800 focus-within:border-sky-500'
+                        : 'bg-white border-slate-200 focus-within:border-[#1f347d]'
+                    } shadow-xs`}
                   >
-                    {/* Requirement 4: Top Header with Quantity Controls */}
-                    <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+                    {/* Top Header with Quantity Controls */}
+                    <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
                       <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <span className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold ${theme === 'dark' ? 'bg-slate-800 text-sky-400' : 'bg-sky-50 text-[#3c89bd]'}`}>
+                        <span className={`w-5 h-5 rounded-md flex items-center justify-center text-xs font-black ${theme === 'dark' ? 'bg-slate-800 text-sky-300' : 'bg-sky-50 text-[#1f347d]'}`}>
                           {idx + 1}
                         </span>
                         <input
@@ -1272,35 +1285,35 @@ export default function App() {
                           value={p.name}
                           onChange={(e) => handleProductChange(p.id, 'name', e.target.value)}
                           placeholder={lang === 'ar' ? `اسم المنتج ${idx + 1} (اختيارى)` : `Product ${idx + 1} (optional)`}
-                          className="w-full bg-transparent text-sm font-bold placeholder:text-slate-400 focus:outline-hidden"
+                          className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#0a192f] dark:text-white placeholder:text-slate-400 focus:outline-hidden"
                         />
                       </div>
 
-                      {/* Requirement 4: Instant, responsive Quantity Controls */}
-                      <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 px-2 py-1 rounded-xl">
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline px-1">
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 px-1.5 py-0.5 rounded-lg">
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline px-0.5 font-bold">
                           {lang === 'ar' ? 'العبوات:' : 'Qty:'}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleQuantityDelta(p.id, -1)}
                           disabled={p.quantity <= 1}
-                          className="w-6 h-6 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-xs disabled:opacity-30 transition-none"
+                          className="w-5 h-5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 flex items-center justify-center font-bold text-xs disabled:opacity-30 transition-none"
                           aria-label={lang === 'ar' ? 'تقليل العبوات' : 'Decrease Quantity'}
                         >
-                          <Minus className="w-3 h-3" />
+                          <Minus className="w-2.5 h-2.5" />
                         </button>
-                        <span className="w-6 text-center text-xs font-bold">
+                        <span className="w-5 text-center text-xs font-black text-[#0a192f] dark:text-white">
                           {p.quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleQuantityDelta(p.id, 1)}
                           disabled={p.quantity >= 99}
-                          className="w-6 h-6 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold text-xs disabled:opacity-30 transition-none"
+                          className="w-5 h-5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 flex items-center justify-center font-bold text-xs disabled:opacity-30 transition-none"
                           aria-label={lang === 'ar' ? 'زيادة العبوات' : 'Increase Quantity'}
                         >
-                          <Plus className="w-3 h-3" />
+                          <Plus className="w-2.5 h-2.5" />
                         </button>
                       </div>
 
@@ -1309,22 +1322,22 @@ export default function App() {
                         type="button"
                         onClick={() => handleRemoveProduct(p.id)}
                         disabled={products.length <= 2}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 disabled:opacity-20 transition-colors"
+                        className="p-1 rounded-md text-slate-400 hover:text-rose-500 disabled:opacity-20 transition-colors"
                         title={lang === 'ar' ? 'حذف المنتج' : 'Delete Product'}
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
                     {/* Product Inputs Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
                       {/* Weight / Volume Input */}
                       <div>
-                        <label className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-1">
-                          <Scale className="w-3.5 h-3.5 text-sky-500" />
-                          <span>{lang === 'ar' ? 'وزن أو حجم العبوة' : 'Pack Weight / Volume'}</span>
+                        <label className="flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-0.5">
+                          <Scale className="w-3 h-3 text-sky-500" />
+                          <span>{lang === 'ar' ? 'الوزن أو الحجم' : 'Weight / Volume'}</span>
                         </label>
-                        <div className={`flex items-center rounded-xl border overflow-hidden ${errors[`${p.id}_weight`] ? 'border-rose-400 bg-rose-50/30' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
+                        <div className={`flex items-center rounded-lg border overflow-hidden ${errors[`${p.id}_weight`] ? 'border-rose-400 bg-rose-50/30' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
                           <input
                             type="text"
                             inputMode="decimal"
@@ -1332,32 +1345,31 @@ export default function App() {
                             onFocus={handleNumericFocus}
                             onChange={(e) => handleProductChange(p.id, 'weight', e.target.value)}
                             placeholder={lang === 'ar' ? 'مثال: ٣٠٠' : 'e.g. 300'}
-                            className="w-full px-3 py-2 text-sm font-bold bg-transparent text-end focus:outline-hidden"
+                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden"
                             dir="ltr"
                           />
-                          {/* Requirement 7: Gram, Kilogram, and Liter Support */}
                           <select
                             value={p.unit}
                             onChange={(e) => handleProductChange(p.id, 'unit', e.target.value)}
-                            className={`px-2 py-2 text-xs font-bold border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-sky-400' : 'border-slate-200 bg-slate-100 text-[#3c89bd]'} focus:outline-hidden`}
+                            className={`px-2 py-1.5 text-xs font-bold border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-sky-300' : 'border-slate-200 bg-slate-100 text-[#1f347d]'} focus:outline-hidden`}
                           >
-                            <option value="g">{lang === 'ar' ? 'جرام (g)' : 'Gram (g)'}</option>
-                            <option value="kg">{lang === 'ar' ? 'كيلو (kg)' : 'Kilogram (kg)'}</option>
-                            <option value="l">{lang === 'ar' ? 'لتر (L)' : 'Liter (L)'}</option>
+                            <option value="g" className="bg-white dark:bg-slate-800 text-[#0a192f] dark:text-white">{lang === 'ar' ? 'جرام' : 'Gram'}</option>
+                            <option value="kg" className="bg-white dark:bg-slate-800 text-[#0a192f] dark:text-white">{lang === 'ar' ? 'كيلو' : 'Kg'}</option>
+                            <option value="l" className="bg-white dark:bg-slate-800 text-[#0a192f] dark:text-white">{lang === 'ar' ? 'لتر' : 'Liter'}</option>
                           </select>
                         </div>
                         {errors[`${p.id}_weight`] && (
-                          <p className="text-[10px] text-rose-500 mt-1">{errors[`${p.id}_weight`]}</p>
+                          <p className="text-[10px] text-rose-500 mt-0.5 font-bold">{errors[`${p.id}_weight`]}</p>
                         )}
                       </div>
 
                       {/* Price Input */}
                       <div>
-                        <label className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-1">
-                          <Coins className="w-3.5 h-3.5 text-sky-500" />
+                        <label className="flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-0.5">
+                          <Coins className="w-3 h-3 text-sky-500" />
                           <span>{lang === 'ar' ? 'سعر العبوة' : 'Pack Price'}</span>
                         </label>
-                        <div className={`flex items-center rounded-xl border overflow-hidden ${errors[`${p.id}_price`] ? 'border-rose-400 bg-rose-50/30' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
+                        <div className={`flex items-center rounded-lg border overflow-hidden ${errors[`${p.id}_price`] ? 'border-rose-400 bg-rose-50/30' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
                           <input
                             type="text"
                             inputMode="decimal"
@@ -1365,15 +1377,15 @@ export default function App() {
                             onFocus={handleNumericFocus}
                             onChange={(e) => handleProductChange(p.id, 'price', e.target.value)}
                             placeholder={lang === 'ar' ? 'مثال: ٣٠' : 'e.g. 30'}
-                            className="w-full px-3 py-2 text-sm font-bold bg-transparent text-end focus:outline-hidden"
+                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden"
                             dir="ltr"
                           />
-                          <span className={`px-3 py-2 text-xs font-bold border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-slate-400' : 'border-slate-200 bg-slate-100 text-slate-500'}`}>
+                          <span className={`px-2.5 py-1.5 text-xs font-black border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-slate-300' : 'border-slate-200 bg-slate-100 text-slate-700'}`}>
                             {lang === 'ar' ? 'ج.م' : 'EGP'}
                           </span>
                         </div>
                         {errors[`${p.id}_price`] && (
-                          <p className="text-[10px] text-rose-500 mt-1">{errors[`${p.id}_price`]}</p>
+                          <p className="text-[10px] text-rose-500 mt-0.5 font-bold">{errors[`${p.id}_price`]}</p>
                         )}
                       </div>
                     </div>
@@ -1386,9 +1398,9 @@ export default function App() {
                 <button
                   type="button"
                   onClick={handleAddProduct}
-                  className={`w-full py-3 rounded-xl border border-dashed font-bold text-xs flex items-center justify-center gap-2 transition-all hover:scale-[1.01] ${theme === 'dark' ? 'border-slate-700 hover:border-sky-500 text-sky-400 hover:bg-slate-800/40' : 'border-slate-300 hover:border-[#3c89bd] text-[#3c89bd] hover:bg-sky-50/50'}`}
+                  className={`w-full py-2 rounded-xl border border-dashed font-bold text-xs flex items-center justify-center gap-1.5 transition-all hover:scale-[1.01] ${theme === 'dark' ? 'border-slate-700 hover:border-sky-500 text-sky-400 hover:bg-slate-800/40' : 'border-slate-300 hover:border-[#1f347d] text-[#1f347d] hover:bg-sky-50/50'}`}
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="w-3.5 h-3.5" />
                   <span>{lang === 'ar' ? 'إضافة منتج آخر' : 'Add Another Product'}</span>
                 </button>
               )}
@@ -1396,103 +1408,28 @@ export default function App() {
               {/* Compare Action Button */}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#1f347d] to-[#3c89bd] hover:from-[#18285c] hover:to-[#3274a1] text-white font-black text-base shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#1f347d] to-[#3c89bd] hover:from-[#18285c] hover:to-[#3274a1] text-white font-black text-sm shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
               >
-                <Calculator className="w-5 h-5 text-sky-300 animate-pulse" />
+                <Calculator className="w-4 h-4 text-sky-200" />
                 <span>{lang === 'ar' ? 'احسب الأوفر' : 'Find Best Value'}</span>
-                {lang === 'ar' ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
+                {lang === 'ar' ? <ArrowLeft className="w-3.5 h-3.5" /> : <ArrowRight className="w-3.5 h-3.5" />}
               </button>
             </form>
 
-            {/* Calculation Method Box (طريقة الحساب) - White box, Dark Navy Border (#0a192f), Dark Navy Text (#0a192f) in Light Mode */}
-            <div className={`p-5 rounded-2xl border-2 transition-all font-sans shadow-xs word-in ${
-              theme === 'dark'
-                ? 'bg-slate-800/90 border-slate-700 text-slate-100'
-                : 'bg-white border-[#0a192f] text-[#0a192f]'
-            }`} style={{ '--i': 1 } as React.CSSProperties}>
-              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200 dark:border-slate-700">
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm ${
-                  theme === 'dark' ? 'bg-sky-500/20 text-sky-400' : 'bg-[#0a192f] text-white'
-                }`}>
-                  <Calculator className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className={`font-black text-sm sm:text-base ${
-                    theme === 'dark' ? 'text-white' : 'text-[#0a192f]'
-                  }`}>
-                    {lang === 'ar' ? 'طريقة الحساب والمعادلة' : 'Calculation Method & Formula'}
-                  </h3>
-                  <p className={`text-[11px] ${
-                    theme === 'dark' ? 'text-slate-400' : 'text-[#0a192f]/70'
-                  }`}>
-                    {lang === 'ar' ? 'كيف يحسب التطبيق المنتج الأوفر ويحدد الفائز بدقة؟' : 'How the app calculates the best value and rankings'}
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-3.5 space-y-3 text-xs leading-relaxed">
-                <div className={`p-3.5 rounded-xl border ${
-                  theme === 'dark'
-                    ? 'bg-slate-900/60 border-slate-700 text-sky-300'
-                    : 'bg-[#f4f7fc] border-[#0a192f]/20 text-[#0a192f]'
-                }`}>
-                  <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1">
-                    {lang === 'ar' ? 'المعادلة الرياضية المعيارية:' : 'Standardized Mathematical Formula:'}
-                  </div>
-                  <div className="text-sm font-black tracking-tight">
-                    {lang === 'ar'
-                      ? 'سعر الكيلو = (سعر العبوة ÷ وزن العبوة بالجرام) × ١٠٠٠'
-                      : 'Price / kg = (Pack Price ÷ Weight in grams) × 1000'}
-                  </div>
-                  <div className="text-xs font-bold mt-1 opacity-90">
-                    {lang === 'ar'
-                      ? 'سعر اللتر = سعر العبوة ÷ الحجم باللتر'
-                      : 'Price / Liter = Pack Price ÷ Volume in Liters'}
-                  </div>
-                </div>
-
-                <div className={`p-3 rounded-xl border ${
-                  theme === 'dark'
-                    ? 'bg-slate-900/40 border-slate-700 text-slate-200'
-                    : 'bg-white border-[#0a192f]/20 text-[#0a192f]'
-                } space-y-2`}>
-                  <div className="font-extrabold text-xs">
-                    {lang === 'ar' ? 'مثال عملي مباشر:' : 'Direct Practical Example:'}
-                  </div>
-                  <div className="flex items-center justify-between text-xs font-bold">
-                    <span>{lang === 'ar' ? 'عبوة ٣٠٠ جرام بسعر ٣٠ ج.م:' : '300g pack at 30 EGP:'}</span>
-                    <span className="font-black text-sky-600 dark:text-sky-300">١٠٠٫٠٠ ج.م / كيلو</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs font-bold">
-                    <span>{lang === 'ar' ? 'عبوة ٤٥٠ جرام بسعر ٤٠ ج.م:' : '450g pack at 40 EGP:'}</span>
-                    <span className="font-black text-emerald-600 dark:text-emerald-400">٨٨٫٨٩ ج.م / كيلو (الأوفر)</span>
-                  </div>
-                </div>
-
-                <p className={`text-[11px] font-medium leading-relaxed ${
-                  theme === 'dark' ? 'text-slate-300' : 'text-[#0a192f]/80'
-                }`}>
-                  {lang === 'ar'
-                    ? 'في هذا المثال، شراء عبوة ٤٥٠ جرام يوفر لك ١١٫١١ ج.م في كل كيلو تشتريه، بالرغم من أن سعر العبوة الفردي أعلى.'
-                    : 'In this example, buying the 450g pack saves 11.11 EGP per kg, even though the sticker price is higher.'}
-                </p>
-              </div>
-            </div>
-
             {/* Results Section (Requirements 1, 5, 8) */}
             {results && (
-              <div id="results-section" className="pt-4 space-y-4">
+              <div id="results-section" className="pt-2 space-y-3">
                 {/* Summary Headline Banner */}
                 <div
                   style={{ '--i': 0 } as React.CSSProperties}
-                  className={`p-5 rounded-2xl border ${theme === 'dark' ? 'bg-[#1e3a5f] border-sky-800 text-sky-100' : 'bg-gradient-to-r from-sky-50 to-blue-50 border-sky-200 text-[#1f347d]'} shadow-sm hover-lift word-in`}
+                  className={`p-3.5 sm:p-4 rounded-xl border ${theme === 'dark' ? 'bg-[#1e3a5f] border-sky-800 text-sky-100' : 'bg-gradient-to-r from-sky-50 to-blue-50 border-sky-200 text-[#0a192f]'} shadow-xs word-in`}
                 >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center font-black flex-shrink-0 shadow-md">
-                      <Trophy className="w-6 h-6 text-amber-900" />
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black flex-shrink-0 shadow-sm">
+                      <Trophy className="w-5 h-5 text-amber-900" />
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-base sm:text-lg">
+                      <h3 className="font-black text-sm sm:text-base">
                         {results.allEqual
                           ? (results.isVolume
                               ? (lang === 'ar' ? 'كل المنتجات متساوية فى السعر لكل لتر' : 'All products have the same price per liter')
@@ -1502,18 +1439,18 @@ export default function App() {
                               : `${results.cheapest.name} is the best value, saving ${results.savingsPerUnit.toFixed(2)} EGP`)}
                       </h3>
                       {!results.allEqual && (
-                        <p className="text-xs text-sky-700 dark:text-sky-300 mt-1 font-medium flex items-center gap-1.5 flex-wrap">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-400 inline" />
+                        <p className="text-[11px] sm:text-xs text-sky-800 dark:text-sky-300 mt-0.5 font-bold flex items-center gap-1.5 flex-wrap">
+                          <Sparkles className="w-3 h-3 text-amber-500 inline" />
                           <span>
                             {results.isVolume
-                              ? (lang === 'ar' ? 'حساب موحد لسعر الـ ١ لتر' : 'Standard 1 Liter basis')
-                              : (lang === 'ar' ? 'حساب موحد لسعر الـ ١ كيلو' : 'Standard 1 Kilogram basis')}
+                              ? (lang === 'ar' ? 'سعر موحد لـ ١ لتر' : 'Standard 1 Liter')
+                              : (lang === 'ar' ? 'سعر موحد لـ ١ كيلو' : 'Standard 1 Kg')}
                           </span>
                           <span>·</span>
-                          <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                          <span className="font-black text-emerald-700 dark:text-emerald-400">
                             {lang === 'ar'
-                              ? `توفير بنسبة ${results.savingsPercent.toFixed(1)}٪ مقارنة بالخيار الأعلى`
-                              : `Saves ${results.savingsPercent.toFixed(1)}% vs highest option`}
+                              ? `توفير ${results.savingsPercent.toFixed(1)}٪ مقارنة بالخيار الأعلى`
+                              : `Saves ${results.savingsPercent.toFixed(1)}% vs highest`}
                           </span>
                         </p>
                       )}
@@ -1522,7 +1459,7 @@ export default function App() {
                 </div>
 
                 {/* Ranked Cards (Requirement 1 & 5: Enlarged Prominent Best-Value Card) */}
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {results.ranked.map((p, pIndex) => {
                     const isBest = p.isCheapest;
                     const basisUnit = results.isVolume
@@ -1536,45 +1473,45 @@ export default function App() {
                       <div
                         key={p.id}
                         style={{ '--i': pIndex + 1 } as React.CSSProperties}
-                        className={`rounded-2xl border transition-all word-in ${
+                        className={`rounded-xl border transition-all word-in ${
                           isBest
-                            ? `${theme === 'dark' ? 'bg-[#192b4d] border-sky-400' : 'bg-white border-[#3c89bd]'} p-6 shadow-xl ring-2 ring-sky-500/40 hover-lift`
-                            : `${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white/90 border-slate-200'} p-4 shadow-xs hover-lift`
+                            ? `${theme === 'dark' ? 'bg-[#192b4d] border-sky-400' : 'bg-white border-[#1f347d]'} p-3.5 sm:p-4 shadow-md ring-2 ring-sky-500/30`
+                            : `${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} p-3 shadow-xs`
                         }`}
                       >
                         {/* Card Header */}
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex items-center gap-2.5">
-                            <span className={`w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs ${isBest ? 'bg-[#3c89bd] text-white shadow-sm' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>
-                              {isBest ? <Crown className="w-4 h-4 text-amber-300" /> : `#${p.rank}`}
+                        <div className="flex items-start justify-between gap-2.5">
+                          <div className="flex items-center gap-2">
+                            <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs ${isBest ? 'bg-[#1f347d] text-white shadow-xs' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}`}>
+                              {isBest ? <Crown className="w-3.5 h-3.5 text-amber-300" /> : `#${p.rank}`}
                             </span>
                             <div>
-                              <h4 className={`font-black flex items-center gap-1.5 ${isBest ? 'text-lg text-sky-600 dark:text-sky-300' : 'text-base'}`}>
+                              <h4 className={`font-black flex items-center gap-1.5 ${isBest ? 'text-base sm:text-lg text-sky-700 dark:text-sky-300' : 'text-sm sm:text-base text-[#0a192f] dark:text-white'}`}>
                                 <span>{p.name}</span>
-                                {isBest && <Sparkles className="w-4 h-4 text-amber-400 inline" />}
+                                {isBest && <Sparkles className="w-3.5 h-3.5 text-amber-500 inline" />}
                               </h4>
-                              <p className="text-[11px] text-slate-500 mt-0.5">
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 font-bold">
                                 {p.weight} {p.unit === 'l' ? (lang === 'ar' ? 'لتر' : 'L') : (p.unit === 'kg' ? (lang === 'ar' ? 'كيلو' : 'kg') : (lang === 'ar' ? 'جرام' : 'g'))}
                                 {' · '}
                                 {lang === 'ar' ? 'سعر العبوة: ' : 'Pack: '}
-                                <span className="font-bold">{p.price} {lang === 'ar' ? 'ج.م' : 'EGP'}</span>
+                                <span className="font-black text-[#0a192f] dark:text-slate-200">{p.price} {lang === 'ar' ? 'ج.م' : 'EGP'}</span>
                               </p>
                             </div>
                           </div>
 
                           {isBest && (
-                            <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 flex items-center gap-1.5 shadow-xs">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                            <span className="px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 flex items-center gap-1 shadow-xs">
+                              <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                               <span>{lang === 'ar' ? 'الأوفر قيمة' : 'Best Value'}</span>
                             </span>
                           )}
                         </div>
 
                         {/* Price per kg or per Liter */}
-                        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-baseline justify-between flex-wrap gap-2">
+                        <div className="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 flex items-baseline justify-between flex-wrap gap-2">
                           <div>
-                            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                              <Scale className="w-3.5 h-3.5 text-sky-500" />
+                            <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                              <Calculator className="w-3 h-3 text-sky-500" />
                               <span>
                                 {results.isVolume
                                   ? (lang === 'ar' ? 'سعر اللتر' : 'Price per Liter')
@@ -1582,10 +1519,10 @@ export default function App() {
                               </span>
                             </span>
                             <div className="flex items-baseline gap-1 mt-0.5">
-                              <span className={`font-black ${isBest ? 'text-2xl sm:text-3xl text-sky-600 dark:text-sky-400' : 'text-xl'}`}>
+                              <span className={`font-black ${isBest ? 'text-xl sm:text-2xl text-sky-600 dark:text-sky-400' : 'text-lg font-black text-[#0a192f] dark:text-white'}`}>
                                 {p.pricePerUnit.toFixed(2)}
                               </span>
-                              <span className="text-xs font-bold text-slate-500">
+                              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
                                 {basisUnit}
                               </span>
                             </div>
@@ -1597,12 +1534,12 @@ export default function App() {
                           {/* Savings breakdown vs each alternative (Requirement 1) */}
                           {isBest && p.savingsVsAlternative.length > 0 && (
                             <div className="text-end space-y-1">
-                              <span className="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400 flex items-center justify-end gap-1">
+                              <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-400 flex items-center justify-end gap-1">
                                 <TrendingDown className="w-3 h-3 text-emerald-500" />
                                 <span>{lang === 'ar' ? 'مقدار التوفير بالجنيه' : 'Savings vs Alternatives'}</span>
                               </span>
                               {p.savingsVsAlternative.map((alt, i) => (
-                                <div key={i} className="text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-1 rounded-md border border-emerald-100 dark:border-emerald-900">
+                                <div key={i} className="text-[11px] font-black text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-900">
                                   {lang === 'ar'
                                     ? `يوفر ${alt.diffEGP.toFixed(2)} ج.م مقارنة بـ ${alt.altName}`
                                     : `Saves ${alt.diffEGP.toFixed(2)} EGP vs ${alt.altName}`}
@@ -1613,7 +1550,7 @@ export default function App() {
 
                           {!isBest && (
                             <div className="text-end">
-                              <span className="text-xs font-semibold text-slate-400">
+                              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
                                 {lang === 'ar'
                                   ? `+ ${(p.pricePerUnit - results.cheapest.pricePerUnit).toFixed(2)} ج.م مقارنة بالأوفر`
                                   : `+ ${(p.pricePerUnit - results.cheapest.pricePerUnit).toFixed(2)} EGP vs best`}
@@ -1628,7 +1565,7 @@ export default function App() {
 
                 {/* Requirement 8: Navigation Buttons */}
                 <div
-                  className="pt-2 grid grid-cols-2 gap-3 word-in"
+                  className="pt-2 grid grid-cols-2 gap-2.5 word-in"
                   style={{ '--i': results.ranked.length + 1 } as React.CSSProperties}
                 >
                   <button
@@ -1636,18 +1573,20 @@ export default function App() {
                     onClick={() => {
                       document.querySelector('form')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`py-3.5 rounded-xl border text-sm font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-[0.99] ${theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-50 text-[#1f347d] shadow-xs'}`}
+                    className={`py-2.5 rounded-xl border text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 transition-all hover:scale-[1.01] active:scale-[0.99] ${
+                      theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-50 text-[#1f347d] shadow-xs'
+                    }`}
                   >
-                    <ArrowLeft className="w-4 h-4 text-sky-500 rtl:rotate-180" />
+                    <ArrowLeft className="w-3.5 h-3.5 text-sky-500 rtl:rotate-180" />
                     <span>{lang === 'ar' ? 'رجوع للمنتجات' : 'Back to Products'}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleStartOver}
-                    className="py-3.5 rounded-xl bg-gradient-to-r from-[#3c89bd] to-[#1f347d] hover:from-[#3274a1] hover:to-[#18285c] text-white text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]"
+                    className="py-2.5 rounded-xl bg-gradient-to-r from-[#1f347d] to-[#3c89bd] hover:from-[#18285c] hover:to-[#3274a1] text-white text-xs sm:text-sm font-black flex items-center justify-center gap-1.5 shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    <RotateCcw className="w-4 h-4 text-sky-200" />
+                    <RotateCcw className="w-3.5 h-3.5 text-sky-200" />
                     <span>{lang === 'ar' ? 'ابدأ من جديد' : 'Start Over'}</span>
                   </button>
                 </div>
