@@ -1,0 +1,6 @@
+{
+  "name": "E7sbly - احسبلى",
+  "description": "Native Android & offline price-by-weight comparison app for calculating best value, normalized prices, and savings in Egyptian pounds.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
