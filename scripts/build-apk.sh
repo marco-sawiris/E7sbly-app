@@ -4,7 +4,7 @@ set -e
 echo "=== 1. Building React app ==="
 npm run build
 cp -rf dist/* app/src/main/assets/
-rm -f app/src/main/assets/*.apk app/src/main/assets/*.zip app/src/main/assets/*.tar.gz
+rm -f app/src/main/assets/*.apk* app/src/main/assets/*.idsig app/src/main/assets/*.zip app/src/main/assets/*.tar.gz
 
 ANDROID_JAR="/usr/lib/android-sdk/platforms/android-23/android.jar"
 BUILD_DIR="/tmp/e7sbly_build"

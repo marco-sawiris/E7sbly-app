@@ -477,199 +477,190 @@ export default function App() {
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setDrawerOpen(false)}
           />
-          <aside className={`relative z-10 w-80 max-w-[85vw] h-full p-6 flex flex-col shadow-2xl transition-transform ${theme === 'dark' ? 'bg-slate-900 text-slate-100 border-r border-slate-800' : 'bg-white text-[#1f347d]'}`}>
-            <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800">
-              <div className="flex items-center gap-3 font-bold text-lg">
-                <div className="w-8 h-8 rounded-lg bg-[#3c89bd] text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                  <Settings className="w-4 h-4" />
+          <aside className={`relative z-10 w-80 max-w-[85vw] h-full p-5 flex flex-col shadow-2xl transition-transform ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border-r border-slate-800' : 'bg-white text-[#0a192f]'}`}>
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-2.5 font-black text-base">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                  <Settings className="w-4 h-4 text-white" />
                 </div>
-                <span>{lang === 'ar' ? 'الإعدادات' : 'Settings'}</span>
+                <span className="text-[#0a192f] dark:text-white">{lang === 'ar' ? 'الإعدادات' : 'Settings'}</span>
               </div>
               <button
                 onClick={() => setDrawerOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:scale-110 active:scale-95"
+                className="p-1 rounded-lg text-slate-500 hover:text-[#0a192f] dark:text-slate-400 dark:hover:text-white hover:scale-110 active:scale-95"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto py-6 space-y-6">
-
-              {/* Calculation Method Box in Drawer (Direct Copy of Formula & Logic) */}
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
-                  {lang === 'ar' ? 'طريقة الحساب والمعادلة' : 'Calculation Method & Formula'}
-                </h3>
-                <div className={`p-4 rounded-2xl border-2 transition-all font-sans shadow-xs space-y-2.5 ${
+            <div className="flex-1 overflow-y-auto py-4 space-y-3">
+              {/* 1. Calculation Method Item (Opens Modal Popup) */}
+              <button
+                type="button"
+                onClick={() => {
+                  setDrawerOpen(false);
+                  setHelpModalOpen(true);
+                }}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-sm font-bold text-start transition-all hover:scale-[1.01] active:scale-[0.99] ${
                   theme === 'dark'
-                    ? 'bg-slate-800/95 border-slate-700 text-slate-100'
-                    : 'bg-white border-[#0a192f] text-[#0a192f]'
-                }`}>
-                  <div className="flex items-center gap-2 pb-2 border-b border-[#0a192f]/20 dark:border-slate-700">
-                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
-                      theme === 'dark' ? 'bg-sky-500/20 text-sky-400' : 'bg-[#0a192f] text-white'
-                    }`}>
-                      <Calculator className="w-3.5 h-3.5" />
-                    </div>
-                    <h4 className={`font-black text-xs sm:text-sm ${
-                      theme === 'dark' ? 'text-white' : 'text-[#0a192f]'
-                    }`}>
-                      {lang === 'ar' ? 'معادلة الحساب الموحدة' : 'Standardized Calculation'}
-                    </h4>
+                    ? 'bg-slate-800/80 border-slate-700 text-slate-100 hover:bg-slate-700'
+                    : 'bg-white border-slate-200 text-[#0a192f] hover:bg-slate-50 shadow-xs'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-slate-700 text-[#1f347d] dark:text-sky-300 flex items-center justify-center font-bold flex-shrink-0">
+                    <Calculator className="w-4 h-4" />
                   </div>
-
-                  <div className="space-y-2 text-xs leading-relaxed">
-                    <div className={`p-2.5 rounded-xl border ${
-                      theme === 'dark'
-                        ? 'bg-slate-900/60 border-slate-700 text-sky-300'
-                        : 'bg-[#f4f7fc] border-[#0a192f]/20 text-[#0a192f]'
-                    }`}>
-                      <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-0.5">
-                        {lang === 'ar' ? 'المعادلة الأساسية:' : 'Core Formula:'}
-                      </div>
-                      <div className="text-xs font-black">
-                        {lang === 'ar'
-                          ? 'سعر الكيلو = (سعر العبوة ÷ وزن العبوة بالجرام) × ١٠٠٠'
-                          : 'Price/kg = (Price ÷ Weight in grams) × 1000'}
-                      </div>
-                      <div className="text-[11px] font-bold mt-1 opacity-90">
-                        {lang === 'ar'
-                          ? 'سعر اللتر = سعر العبوة ÷ الحجم باللتر'
-                          : 'Price/Liter = Price ÷ Volume in Liters'}
-                      </div>
+                  <div>
+                    <div className="font-black text-xs sm:text-sm text-[#0a192f] dark:text-white">
+                      {lang === 'ar' ? 'طريقة الحساب والمعادلة' : 'Calculation Method & Formula'}
                     </div>
-
-                    <div className={`p-2.5 rounded-xl border ${
-                      theme === 'dark'
-                        ? 'bg-slate-900/40 border-slate-700 text-slate-200'
-                        : 'bg-white border-[#0a192f]/20 text-[#0a192f]'
-                    } space-y-1 text-[11px] font-bold`}>
-                      <div className="flex items-center justify-between">
-                        <span>٣٠٠ جرام بـ ٣٠ ج.م</span>
-                        <span className="font-black text-sky-600 dark:text-sky-300">١٠٠ ج.م / كيلو</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span>٤٥٠ جرام بـ ٤٠ ج.م</span>
-                        <span className="font-black text-emerald-600 dark:text-emerald-400">٨٨٫٨٩ ج.م / كيلو (الأوفر)</span>
-                      </div>
-                    </div>
-
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 leading-snug pt-1">
-                      {lang === 'ar'
-                        ? 'يقوم التطبيق بحساب السعر المعياري تلقائياً وترتيب المنتجات من الأوفر إلى الأغلى.'
-                        : 'Calculates unit prices automatically and sorts products from best value to highest.'}
+                    <div className="text-[10px] text-slate-600 dark:text-slate-400 font-bold">
+                      {lang === 'ar' ? 'شرح المعادلة الرياضية المعيارية' : 'Formula explanation popup'}
                     </div>
                   </div>
                 </div>
+                <Info className="w-4 h-4 text-[#1f347d] dark:text-sky-400 flex-shrink-0" />
+              </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDrawerOpen(false);
-                    setHelpModalOpen(true);
-                  }}
-                  className={`mt-2 w-full flex items-center justify-between p-2.5 rounded-xl border text-xs font-bold text-start transition-colors ${
-                    theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-sky-300' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-[#3c89bd]'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <HelpCircle className="w-3.5 h-3.5" />
-                    <span>{lang === 'ar' ? 'عرض تفاصيل المعادلة في نافذة كاملة' : 'View Full Formula in Modal'}</span>
+              {/* 2. App Theme Selection */}
+              <div className={`p-3 rounded-xl border ${
+                theme === 'dark' ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200 shadow-xs'
+              } space-y-2`}>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-slate-700 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold flex-shrink-0">
+                    {theme === 'dark' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
                   </div>
-                  <Info className="w-3.5 h-3.5 text-slate-400" />
-                </button>
-              </div>
-
-              {/* Theme Selection */}
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  {lang === 'ar' ? 'مظهر التطبيق' : 'App Theme'}
-                </h3>
-                <div className="grid grid-cols-2 gap-2">
+                  <span className="font-black text-xs sm:text-sm text-[#0a192f] dark:text-white">
+                    {lang === 'ar' ? 'مظهر التطبيق' : 'App Theme'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-0.5">
                   <button
+                    type="button"
                     onClick={() => setTheme('light')}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${theme === 'light' ? 'bg-[#3c89bd] text-white border-[#3c89bd] shadow-sm' : 'border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                    className={`py-1.5 rounded-lg text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
+                      theme === 'light'
+                        ? 'bg-[#1f347d] text-white shadow-xs'
+                        : 'border border-slate-200 dark:border-slate-700 text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
                   >
-                    <Sun className="w-4 h-4" />
-                    <span>{lang === 'ar' ? 'الوضع الفاتح' : 'Light Mode'}</span>
+                    <Sun className="w-3.5 h-3.5" />
+                    <span>{lang === 'ar' ? 'فاتح' : 'Light'}</span>
                   </button>
                   <button
+                    type="button"
                     onClick={() => setTheme('dark')}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${theme === 'dark' ? 'bg-[#3c89bd] text-white border-[#3c89bd] shadow-sm' : 'border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                    className={`py-1.5 rounded-lg text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
+                      theme === 'dark'
+                        ? 'bg-sky-600 text-white shadow-xs'
+                        : 'border border-slate-200 dark:border-slate-700 text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
                   >
-                    <Moon className="w-4 h-4" />
-                    <span>{lang === 'ar' ? 'الوضع الداكن' : 'Dark Mode'}</span>
+                    <Moon className="w-3.5 h-3.5" />
+                    <span>{lang === 'ar' ? 'داكن' : 'Dark'}</span>
                   </button>
                 </div>
               </div>
 
-              {/* Language Selection */}
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  {lang === 'ar' ? 'لغة التطبيق' : 'App Language'}
-                </h3>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => setLang('ar')}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${lang === 'ar' ? 'bg-[#3c89bd] text-white border-[#3c89bd] shadow-sm' : 'border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
-                  >
+              {/* 3. App Language Selection */}
+              <div className={`p-3 rounded-xl border ${
+                theme === 'dark' ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200 shadow-xs'
+              } space-y-2`}>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-slate-700 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold flex-shrink-0">
                     <Globe className="w-4 h-4" />
+                  </div>
+                  <span className="font-black text-xs sm:text-sm text-[#0a192f] dark:text-white">
+                    {lang === 'ar' ? 'لغة التطبيق' : 'App Language'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setLang('ar')}
+                    className={`py-1.5 rounded-lg text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
+                      lang === 'ar'
+                        ? 'bg-[#1f347d] text-white shadow-xs'
+                        : 'border border-slate-200 dark:border-slate-700 text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
+                  >
                     <span>العربية</span>
                   </button>
                   <button
+                    type="button"
                     onClick={() => setLang('en')}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-sm font-semibold transition-all ${lang === 'en' ? 'bg-[#3c89bd] text-white border-[#3c89bd] shadow-sm' : 'border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                    className={`py-1.5 rounded-lg text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
+                      lang === 'en'
+                        ? 'bg-[#1f347d] text-white shadow-xs'
+                        : 'border border-slate-200 dark:border-slate-700 text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
                   >
-                    <Globe className="w-4 h-4" />
                     <span>English</span>
                   </button>
                 </div>
               </div>
 
-              {/* About App Button */}
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
-                  {lang === 'ar' ? 'عن التطبيق' : 'About App'}
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDrawerOpen(false);
-                    setAboutAppModalOpen(true);
-                  }}
-                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-sm font-semibold text-start transition-colors ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Info className="w-4 h-4 text-sky-500" />
-                    <span>{lang === 'ar' ? 'عن التطبيق' : 'About App'}</span>
+              {/* 4. About Application Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setDrawerOpen(false);
+                  setAboutAppModalOpen(true);
+                }}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-sm font-bold text-start transition-all hover:scale-[1.01] active:scale-[0.99] ${
+                  theme === 'dark'
+                    ? 'bg-slate-800/80 border-slate-700 text-slate-100 hover:bg-slate-700'
+                    : 'bg-white border-slate-200 text-[#0a192f] hover:bg-slate-50 shadow-xs'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-slate-700 text-[#1f347d] dark:text-sky-300 flex items-center justify-center font-bold flex-shrink-0">
+                    <Info className="w-4 h-4" />
                   </div>
-                  <Info className="w-3.5 h-3.5 text-slate-400" />
-                </button>
-              </div>
+                  <div>
+                    <div className="font-black text-xs sm:text-sm text-[#0a192f] dark:text-white">
+                      {lang === 'ar' ? 'عن التطبيق' : 'About Application'}
+                    </div>
+                    <div className="text-[10px] text-slate-600 dark:text-slate-400 font-bold">
+                      {lang === 'ar' ? 'الإصدار والمميزات' : 'Version & features overview'}
+                    </div>
+                  </div>
+                </div>
+                <ExternalLink className="w-4 h-4 text-[#1f347d] dark:text-sky-400 flex-shrink-0" />
+              </button>
 
-              {/* Developer Info Button */}
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
-                  {lang === 'ar' ? 'عن المطور' : 'About Developer'}
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDrawerOpen(false);
-                    setDeveloperModalOpen(true);
-                  }}
-                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-sm font-semibold text-start transition-colors ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'}`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <User className="w-4 h-4 text-sky-500" />
-                    <span>{lang === 'ar' ? 'عن المطور' : 'About Developer'}</span>
+              {/* 5. About Developer Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setDrawerOpen(false);
+                  setDeveloperModalOpen(true);
+                }}
+                className={`w-full flex items-center justify-between p-3 rounded-xl border text-sm font-bold text-start transition-all hover:scale-[1.01] active:scale-[0.99] ${
+                  theme === 'dark'
+                    ? 'bg-slate-800/80 border-slate-700 text-slate-100 hover:bg-slate-700'
+                    : 'bg-white border-slate-200 text-[#0a192f] hover:bg-slate-50 shadow-xs'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-slate-700 text-[#1f347d] dark:text-sky-300 flex items-center justify-center font-bold flex-shrink-0">
+                    <User className="w-4 h-4" />
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                </button>
-              </div>
+                  <div>
+                    <div className="font-black text-xs sm:text-sm text-[#0a192f] dark:text-white">
+                      {lang === 'ar' ? 'عن المطور' : 'About Developer'}
+                    </div>
+                    <div className="text-[10px] text-slate-600 dark:text-slate-400 font-bold">
+                      MARCO SAWIRIS
+                    </div>
+                  </div>
+                </div>
+                <ExternalLink className="w-4 h-4 text-[#1f347d] dark:text-sky-400 flex-shrink-0" />
+              </button>
             </div>
 
-            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-400 flex items-center justify-center gap-1">
+            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 text-center text-xs font-black text-[#1f347d] dark:text-slate-400 flex items-center justify-center gap-1">
               <span>احسبلى — اختار الأوفر</span>
             </div>
           </aside>
@@ -1208,9 +1199,9 @@ export default function App() {
                 </div>
                 <div>
                   <h1 className="text-sm sm:text-base font-black text-[#0a192f] dark:text-white leading-tight">
-                    {lang === 'ar' ? 'نفس المنتج، أنهى أوفر؟' : 'Same Product, Better Value?'}
+                    {lang === 'ar' ? 'نفس المنتج، أيهما أوفر؟' : 'Same Product, Better Value?'}
                   </h1>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p className="text-[10px] sm:text-[11px] text-[#1f347d] dark:text-slate-300 mt-0.5 font-bold">
                     {lang === 'ar' ? 'قارن الوزن والسعر، واعرف التوفير بالجنيه المصرى فى لحظة.' : 'Compare weight or volume and price to calculate real savings in EGP.'}
                   </p>
                 </div>
@@ -1221,7 +1212,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={handleLoadExample}
-                  className={`px-3 py-1 rounded-lg border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${
+                  className={`px-3 py-1 rounded-lg border text-[11px] sm:text-xs font-black flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${
                     theme === 'dark'
                       ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-sky-400'
                       : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-[#1f347d]'
@@ -1234,7 +1225,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={handleStartOver}
-                  className="px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-rose-500 hover:border-rose-300 dark:hover:border-rose-900/60 bg-transparent hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all flex items-center gap-1.5 active:scale-95"
+                  className="px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700 text-[11px] sm:text-xs font-black text-[#1f347d] dark:text-slate-300 hover:text-rose-600 hover:border-rose-300 dark:hover:border-rose-900/60 bg-transparent hover:bg-rose-50/50 dark:hover:bg-rose-950/20 transition-all flex items-center gap-1.5 active:scale-95"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>{lang === 'ar' ? 'تفريغ' : 'Clear'}</span>
@@ -1242,23 +1233,23 @@ export default function App() {
               </div>
             </div>
 
-            {/* Error Banner */}
+            {/* Error Banner - High Contrast Red for Light and Dark Modes */}
             {generalError && (
-              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-xs flex items-start gap-2 animate-slide-up-fade">
-                <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-500" />
-                <span>{generalError}</span>
+              <div className="p-3 rounded-xl bg-red-100 dark:bg-red-950/70 border-2 border-red-700 text-red-950 dark:text-red-100 text-xs flex items-center gap-2.5 shadow-sm animate-slide-up-fade font-black">
+                <AlertTriangle className="w-4 h-4 flex-shrink-0 text-red-700 dark:text-red-400" />
+                <span className="font-black text-red-950 dark:text-red-100">{generalError}</span>
               </div>
             )}
 
             {/* Products Form - Compact & Snug */}
             <form onSubmit={handleCalculate} style={{ '--i': 1 } as React.CSSProperties} className="space-y-2.5 word-in">
               <div className="flex items-center justify-between px-0.5">
-                <h2 className="text-xs font-black uppercase tracking-wider text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                <h2 className="text-xs font-black uppercase tracking-wider text-[#0a192f] dark:text-slate-300 flex items-center gap-1.5">
                   <Tag className="w-3 h-3 text-sky-500" />
                   <span>{lang === 'ar' ? 'المنتجات للمقارنة' : 'Products to Compare'}</span>
                   <span className="text-xs text-sky-600 dark:text-sky-400 font-bold">({products.length}/5)</span>
                 </h2>
-                <span className="text-[11px] text-slate-400 font-medium">
+                <span className="text-[11px] text-[#1f347d] dark:text-slate-400 font-bold">
                   {lang === 'ar' ? 'يمكن مقارنة ٢ إلى ٥ منتجات' : '2 to 5 products'}
                 </span>
               </div>
@@ -1285,35 +1276,35 @@ export default function App() {
                           value={p.name}
                           onChange={(e) => handleProductChange(p.id, 'name', e.target.value)}
                           placeholder={lang === 'ar' ? `اسم المنتج ${idx + 1} (اختيارى)` : `Product ${idx + 1} (optional)`}
-                          className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#0a192f] dark:text-white placeholder:text-slate-400 focus:outline-hidden"
+                          className="w-full bg-transparent text-xs sm:text-sm font-bold text-[#0a192f] dark:text-white placeholder:text-slate-500 focus:outline-hidden"
                         />
                       </div>
 
-                      {/* Quantity Controls */}
-                      <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 px-1.5 py-0.5 rounded-lg">
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline px-0.5 font-bold">
+                      {/* Quantity Controls - Styled clean like the delete icon without dark/grey container */}
+                      <div className="flex items-center gap-1 border border-slate-200 dark:border-slate-700 rounded-lg px-1 py-0.5">
+                        <span className="text-[10px] text-[#1f347d] dark:text-slate-400 hidden sm:inline px-0.5 font-bold">
                           {lang === 'ar' ? 'العبوات:' : 'Qty:'}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleQuantityDelta(p.id, -1)}
                           disabled={p.quantity <= 1}
-                          className="w-5 h-5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 flex items-center justify-center font-bold text-xs disabled:opacity-30 transition-none"
+                          className="p-1 rounded text-slate-500 hover:text-[#1f347d] dark:text-slate-400 dark:hover:text-white disabled:opacity-25 transition-colors"
                           aria-label={lang === 'ar' ? 'تقليل العبوات' : 'Decrease Quantity'}
                         >
-                          <Minus className="w-2.5 h-2.5" />
+                          <Minus className="w-3 h-3" />
                         </button>
-                        <span className="w-5 text-center text-xs font-black text-[#0a192f] dark:text-white">
+                        <span className="min-w-5 text-center text-xs font-black text-[#0a192f] dark:text-white">
                           {p.quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => handleQuantityDelta(p.id, 1)}
                           disabled={p.quantity >= 99}
-                          className="w-5 h-5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 flex items-center justify-center font-bold text-xs disabled:opacity-30 transition-none"
+                          className="p-1 rounded text-slate-500 hover:text-[#1f347d] dark:text-slate-400 dark:hover:text-white disabled:opacity-25 transition-colors"
                           aria-label={lang === 'ar' ? 'زيادة العبوات' : 'Increase Quantity'}
                         >
-                          <Plus className="w-2.5 h-2.5" />
+                          <Plus className="w-3 h-3" />
                         </button>
                       </div>
 
@@ -1322,7 +1313,7 @@ export default function App() {
                         type="button"
                         onClick={() => handleRemoveProduct(p.id)}
                         disabled={products.length <= 2}
-                        className="p-1 rounded-md text-slate-400 hover:text-rose-500 disabled:opacity-20 transition-colors"
+                        className="p-1 rounded-md text-slate-400 hover:text-rose-600 disabled:opacity-20 transition-colors"
                         title={lang === 'ar' ? 'حذف المنتج' : 'Delete Product'}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -1331,13 +1322,13 @@ export default function App() {
 
                     {/* Product Inputs Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
-                      {/* Weight / Volume Input */}
+                      {/* Weight / Volume Input with Custom Segmented Unit Switcher */}
                       <div>
-                        <label className="flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-0.5">
+                        <label className="flex items-center gap-1 text-[11px] font-black text-[#0a192f] dark:text-slate-300 mb-0.5">
                           <Scale className="w-3 h-3 text-sky-500" />
                           <span>{lang === 'ar' ? 'الوزن أو الحجم' : 'Weight / Volume'}</span>
                         </label>
-                        <div className={`flex items-center rounded-lg border overflow-hidden ${errors[`${p.id}_weight`] ? 'border-rose-400 bg-rose-50/30' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
+                        <div className={`flex items-center rounded-lg border overflow-hidden ${errors[`${p.id}_weight`] ? 'border-red-500 bg-red-50/40' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
                           <input
                             type="text"
                             inputMode="decimal"
@@ -1345,31 +1336,58 @@ export default function App() {
                             onFocus={handleNumericFocus}
                             onChange={(e) => handleProductChange(p.id, 'weight', e.target.value)}
                             placeholder={lang === 'ar' ? 'مثال: ٣٠٠' : 'e.g. 300'}
-                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden"
+                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden placeholder:text-slate-500"
                             dir="ltr"
                           />
-                          <select
-                            value={p.unit}
-                            onChange={(e) => handleProductChange(p.id, 'unit', e.target.value)}
-                            className={`px-2 py-1.5 text-xs font-bold border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-sky-300' : 'border-slate-200 bg-slate-100 text-[#1f347d]'} focus:outline-hidden`}
-                          >
-                            <option value="g" className="bg-white dark:bg-slate-800 text-[#0a192f] dark:text-white">{lang === 'ar' ? 'جرام' : 'Gram'}</option>
-                            <option value="kg" className="bg-white dark:bg-slate-800 text-[#0a192f] dark:text-white">{lang === 'ar' ? 'كيلو' : 'Kg'}</option>
-                            <option value="l" className="bg-white dark:bg-slate-800 text-[#0a192f] dark:text-white">{lang === 'ar' ? 'لتر' : 'Liter'}</option>
-                          </select>
+                          {/* Custom Segmented Unit Switcher - Unified Montserrat-Arabic Font and Visual Harmony */}
+                          <div className="flex items-center border-s border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/60 p-0.5">
+                            <button
+                              type="button"
+                              onClick={() => handleProductChange(p.id, 'unit', 'g')}
+                              className={`px-1.5 py-0.5 text-[10px] sm:text-[11px] font-black rounded transition-colors ${
+                                p.unit === 'g'
+                                  ? 'bg-[#1f347d] text-white shadow-xs'
+                                  : 'text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                              }`}
+                            >
+                              {lang === 'ar' ? 'جرام' : 'g'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleProductChange(p.id, 'unit', 'kg')}
+                              className={`px-1.5 py-0.5 text-[10px] sm:text-[11px] font-black rounded transition-colors ${
+                                p.unit === 'kg'
+                                  ? 'bg-[#1f347d] text-white shadow-xs'
+                                  : 'text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                              }`}
+                            >
+                              {lang === 'ar' ? 'كيلو' : 'kg'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleProductChange(p.id, 'unit', 'l')}
+                              className={`px-1.5 py-0.5 text-[10px] sm:text-[11px] font-black rounded transition-colors ${
+                                p.unit === 'l'
+                                  ? 'bg-[#1f347d] text-white shadow-xs'
+                                  : 'text-[#0a192f] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                              }`}
+                            >
+                              {lang === 'ar' ? 'لتر' : 'L'}
+                            </button>
+                          </div>
                         </div>
                         {errors[`${p.id}_weight`] && (
-                          <p className="text-[10px] text-rose-500 mt-0.5 font-bold">{errors[`${p.id}_weight`]}</p>
+                          <p className="text-[10px] text-red-700 dark:text-red-400 mt-0.5 font-black">{errors[`${p.id}_weight`]}</p>
                         )}
                       </div>
 
                       {/* Price Input */}
                       <div>
-                        <label className="flex items-center gap-1 text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-0.5">
+                        <label className="flex items-center gap-1 text-[11px] font-black text-[#0a192f] dark:text-slate-300 mb-0.5">
                           <Coins className="w-3 h-3 text-sky-500" />
                           <span>{lang === 'ar' ? 'سعر العبوة' : 'Pack Price'}</span>
                         </label>
-                        <div className={`flex items-center rounded-lg border overflow-hidden ${errors[`${p.id}_price`] ? 'border-rose-400 bg-rose-50/30' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
+                        <div className={`flex items-center rounded-lg border overflow-hidden ${errors[`${p.id}_price`] ? 'border-red-500 bg-red-50/40' : theme === 'dark' ? 'border-slate-700 bg-slate-800' : 'border-slate-200 bg-slate-50'}`}>
                           <input
                             type="text"
                             inputMode="decimal"
@@ -1377,15 +1395,15 @@ export default function App() {
                             onFocus={handleNumericFocus}
                             onChange={(e) => handleProductChange(p.id, 'price', e.target.value)}
                             placeholder={lang === 'ar' ? 'مثال: ٣٠' : 'e.g. 30'}
-                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden"
+                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden placeholder:text-slate-500"
                             dir="ltr"
                           />
-                          <span className={`px-2.5 py-1.5 text-xs font-black border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-slate-300' : 'border-slate-200 bg-slate-100 text-slate-700'}`}>
+                          <span className={`px-2.5 py-1.5 text-xs font-black border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-slate-200' : 'border-slate-200 bg-slate-100 text-[#0a192f]'}`}>
                             {lang === 'ar' ? 'ج.م' : 'EGP'}
                           </span>
                         </div>
                         {errors[`${p.id}_price`] && (
-                          <p className="text-[10px] text-rose-500 mt-0.5 font-bold">{errors[`${p.id}_price`]}</p>
+                          <p className="text-[10px] text-red-700 dark:text-red-400 mt-0.5 font-black">{errors[`${p.id}_price`]}</p>
                         )}
                       </div>
                     </div>
