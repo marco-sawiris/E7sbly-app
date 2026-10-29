@@ -4,7 +4,7 @@ import {
   Plus, Minus, Trash2, ArrowLeft, ArrowRight, ShieldCheck,
   Scale, Calculator, Sparkles, ExternalLink, Info, AlertTriangle,
   Trophy, Crown, Tag, Coins, TrendingDown, Award, User, HelpCircle,
-  UploadCloud, Check, Loader2, HardDrive, LogOut
+  UploadCloud, Check, Loader2, HardDrive, LogOut, History
 } from 'lucide-react';
 import developerReferencePhoto from './developer-reference.png';
 import {
@@ -38,6 +38,19 @@ interface RankedProduct {
   rank: number;
   isCheapest: boolean;
   savingsVsAlternative: { altName: string; diffEGP: number }[];
+}
+
+interface HistoryItem {
+  id: string;
+  timestamp: number;
+  dateStr: string;
+  products: ProductInput[];
+  summary: {
+    cheapestName: string;
+    productCount: number;
+    unitBasis: string;
+    savingsPercent?: number;
+  };
 }
 
 export default function App() {
@@ -170,6 +183,29 @@ export default function App() {
     allEqual: boolean;
   } | null>(null);
 
+  // Past Calculations History
+  const [history, setHistory] = useState<HistoryItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('ehsably_history');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const saveHistory = (items: HistoryItem[]) => {
+    setHistory(items);
+    try {
+      localStorage.setItem('ehsably_history', JSON.stringify(items));
+    } catch (e) {
+      console.error('Failed to save history', e);
+    }
+  };
+
+  const handleClearHistory = () => {
+    saveHistory([]);
+  };
+
   // Synchronize document dir and theme
   useEffect(() => {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
@@ -270,8 +306,7 @@ export default function App() {
     return parseFloat(normalized);
   };
 
-  const handleCalculate = (e: React.FormEvent) => {
-    e.preventDefault();
+  const calculateForProducts = (prodsToCalc: ProductInput[], recordInHistory = true) => {
     const newErrors: { [key: string]: string } = {};
 
     const validRows: {
@@ -284,7 +319,7 @@ export default function App() {
       isVolume: boolean;
     }[] = [];
 
-    products.forEach((p, index) => {
+    prodsToCalc.forEach((p, index) => {
       const defaultName = lang === 'ar' ? `المنتج ${index + 1}` : `Product ${index + 1}`;
       const name = p.name.trim() || defaultName;
 
@@ -329,7 +364,7 @@ export default function App() {
       return;
     }
 
-    // Requirement 7: Strict check for weight vs volume compatibility
+    // Strict check for weight vs volume compatibility
     const hasVolume = validRows.some(r => r.isVolume);
     const hasWeight = validRows.some(r => !r.isVolume);
 
@@ -371,7 +406,7 @@ export default function App() {
       }
       const isCheapest = Math.abs(p.pricePerUnit - cheapest.pricePerUnit) < 0.0001;
 
-      // Requirement 1 & 5: Savings compared to each alternative in Egyptian pounds
+      // Savings compared to each alternative in Egyptian pounds
       const savingsVsAlternative: { altName: string; diffEGP: number }[] = [];
       if (isCheapest) {
         normalized.forEach(alt => {
@@ -412,10 +447,63 @@ export default function App() {
       allEqual,
     });
 
+    // Record in history if requested
+    if (recordInHistory) {
+      const now = new Date();
+      const dateStr = now.toLocaleTimeString(lang === 'ar' ? 'ar-EG' : 'en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        month: 'numeric',
+        day: 'numeric',
+      });
+      const historyItem: HistoryItem = {
+        id: Math.random().toString(36).substring(2, 9),
+        timestamp: Date.now(),
+        dateStr,
+        products: prodsToCalc.map(p => ({ ...p })),
+        summary: {
+          cheapestName: ranked[0].name,
+          productCount: validRows.length,
+          unitBasis: isVolumeMode ? (lang === 'ar' ? 'لتر' : 'L') : (lang === 'ar' ? 'كيلو' : 'kg'),
+          savingsPercent,
+        },
+      };
+
+      setHistory(prev => {
+        const filtered = prev.filter(h => {
+          return JSON.stringify(h.products.map(x => ({ w: x.weight, p: x.price, u: x.unit }))) !==
+            JSON.stringify(prodsToCalc.map(x => ({ w: x.weight, p: x.price, u: x.unit })));
+        });
+        const updated = [historyItem, ...filtered].slice(0, 10);
+        try {
+          localStorage.setItem('ehsably_history', JSON.stringify(updated));
+        } catch (e) {
+          console.error(e);
+        }
+        return updated;
+      });
+    }
+
     // Scroll smoothly to results
     setTimeout(() => {
       document.getElementById('results-section')?.scrollIntoView({ behavior: 'smooth' });
     }, 120);
+  };
+
+  const handleCalculate = (e: React.FormEvent) => {
+    e.preventDefault();
+    calculateForProducts(products, true);
+  };
+
+  const handleRestoreHistory = (item: HistoryItem) => {
+    const restored = item.products.map(p => ({ ...p }));
+    setProducts(restored);
+    setErrors({});
+    setGeneralError(null);
+    setDrawerOpen(false);
+    setTimeout(() => {
+      calculateForProducts(restored, false);
+    }, 100);
   };
 
   return (
@@ -438,7 +526,6 @@ export default function App() {
                 <Calculator className="w-4.5 h-4.5 text-white" />
               </div>
               <span
-                style={{ color: theme === 'dark' ? '#ffffff' : '#0a192f' }}
                 className="font-black text-lg sm:text-xl tracking-tight text-[#0a192f] dark:text-white"
               >
                 {lang === 'ar' ? 'احسبلى' : 'E7sbly'}
@@ -470,14 +557,14 @@ export default function App() {
         </div>
       </header>
 
-      {/* Settings Navigation Drawer */}
+      {/* Settings Navigation Drawer - slides from right in Arabic (RTL) */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-50 flex animate-slide-up-fade">
+        <div className={`fixed inset-0 z-50 flex animate-slide-up-fade ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}>
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setDrawerOpen(false)}
           />
-          <aside className={`relative z-10 w-80 max-w-[85vw] h-full p-5 flex flex-col shadow-2xl transition-transform ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border-r border-slate-800' : 'bg-white text-[#0a192f]'}`}>
+          <aside className={`relative z-10 w-80 max-w-[85vw] h-full p-5 flex flex-col shadow-2xl transition-transform ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100' : 'bg-white text-[#0a192f]'} ${lang === 'ar' ? 'border-l border-slate-200 dark:border-slate-800' : 'border-r border-slate-200 dark:border-slate-800'}`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2.5 font-black text-base">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-bold text-sm shadow-xs">
@@ -601,7 +688,81 @@ export default function App() {
                 </div>
               </div>
 
-              {/* 4. About Application Button */}
+              {/* 4. Past Calculations History ("حساباتي القديمة") */}
+              <div
+                className={`p-3 rounded-xl border ${
+                  theme === 'dark' ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-slate-200 shadow-xs'
+                } space-y-2`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-slate-700 text-amber-700 dark:text-amber-400 flex items-center justify-center font-bold flex-shrink-0">
+                      <History className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-black text-xs sm:text-sm text-[#0a192f] dark:text-white flex items-center gap-1.5">
+                        <span>{lang === 'ar' ? 'حساباتي القديمة' : 'Past Calculations'}</span>
+                        {history.length > 0 && (
+                          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-amber-200/60 dark:bg-slate-700 text-amber-900 dark:text-amber-300 font-black">
+                            {history.length}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[10px] text-slate-600 dark:text-slate-400 font-bold">
+                        {lang === 'ar' ? 'استرجاع مقارنة سابقة' : 'Restore past comparison'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {history.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={handleClearHistory}
+                      className="text-[11px] font-black text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:underline px-1 py-0.5 transition-colors cursor-pointer"
+                      title={lang === 'ar' ? 'مسح جميع الحسابات القديمة' : 'Clear calculation history'}
+                    >
+                      {lang === 'ar' ? 'مسح القيم' : 'Clear values'}
+                    </button>
+                  )}
+                </div>
+
+                {history.length === 0 ? (
+                  <div className="text-center py-2.5 px-2 text-[11px] text-slate-500 dark:text-slate-400 font-bold bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
+                    {lang === 'ar' ? 'لا توجد حسابات قديمة بعد' : 'No past calculations yet'}
+                  </div>
+                ) : (
+                  <div className="max-h-44 overflow-y-auto space-y-1.5 pt-0.5">
+                    {history.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleRestoreHistory(item)}
+                        className={`w-full text-start p-2 rounded-lg border text-xs transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer ${
+                          theme === 'dark'
+                            ? 'bg-slate-900/60 border-slate-700 hover:bg-slate-700 text-slate-200'
+                            : 'bg-slate-50 border-slate-200 hover:bg-amber-50/60 text-[#0a192f]'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="font-black text-[#1f347d] dark:text-sky-300 truncate text-[11px]">
+                            🏆 {item.summary.cheapestName} {lang === 'ar' ? 'الأوفر' : 'Best'}
+                          </span>
+                          <span className="text-[10px] text-slate-600 dark:text-slate-400 flex-shrink-0 font-medium">
+                            {item.dateStr}
+                          </span>
+                        </div>
+                        <div className="text-[10px] text-slate-600 dark:text-slate-400 truncate mt-0.5 font-bold">
+                          {item.products
+                            .map((p, idx) => `${p.name || (lang === 'ar' ? `منتج ${idx + 1}` : `P${idx + 1}`)}: ${p.weight}${p.unit}/${p.price}`)
+                            .join(' • ')}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 5. About Application Button */}
               <button
                 type="button"
                 onClick={() => {
@@ -627,10 +788,9 @@ export default function App() {
                     </div>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[#1f347d] dark:text-sky-400 flex-shrink-0" />
               </button>
 
-              {/* 5. About Developer Button */}
+              {/* 6. About Developer Button */}
               <button
                 type="button"
                 onClick={() => {
@@ -656,7 +816,6 @@ export default function App() {
                     </div>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[#1f347d] dark:text-sky-400 flex-shrink-0" />
               </button>
             </div>
 
@@ -760,25 +919,40 @@ export default function App() {
               </p>
             </div>
 
-            {/* Developer Banner Card - Image framed flush with border so it doesn't look abruptly cut */}
+            {/* Developer Banner Card - Multi-level animated card with animated line, text, and portrait */}
             <div
               dir="ltr"
-              style={{ '--i': 2 } as React.CSSProperties}
               className={`rounded-2xl border ${
                 theme === 'dark'
                   ? 'border-slate-700 bg-slate-800/90'
                   : 'border-slate-200 bg-slate-50'
-              } shadow-sm overflow-hidden flex items-stretch mt-3 hover-lift word-in relative min-h-[175px]`}
+              } shadow-sm overflow-hidden flex items-stretch mt-3 hover-lift relative min-h-[175px]`}
             >
-              {/* Bio copy on left */}
-              <div className="flex-1 p-5 sm:p-6 flex items-center z-10">
+              {/* 1. Animated Decorative Accent Line Running Across Card */}
+              <div
+                style={{ '--i': 2 } as React.CSSProperties}
+                className="absolute -top-0.5 inset-x-0 h-1 bg-gradient-to-r from-sky-400 via-[#1f347d] to-amber-400 rounded-t-2xl word-in pointer-events-none z-20"
+              />
+              <div
+                style={{ '--i': 2 } as React.CSSProperties}
+                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-sky-400/15 blur-xl pointer-events-none word-in"
+              />
+
+              {/* 2. Animated Bio Text Container on its own level */}
+              <div
+                style={{ '--i': 3 } as React.CSSProperties}
+                className="flex-1 p-5 sm:p-6 flex items-center z-10 word-in"
+              >
                 <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 leading-snug">
                   20+ years of design experience across Egypt and Qatar, creating brand identities, campaigns, packaging and motion graphics.
                 </p>
               </div>
 
-              {/* Marco Sawiris portrait on right - framed flush with card border */}
-              <div className="w-[42%] sm:w-[38%] flex-shrink-0 flex items-end justify-end overflow-hidden m-0 p-0 relative self-stretch">
+              {/* 3. Animated Marco Sawiris Portrait on its own level */}
+              <div
+                style={{ '--i': 4 } as React.CSSProperties}
+                className="w-[42%] sm:w-[38%] flex-shrink-0 flex items-end justify-end overflow-hidden m-0 p-0 relative self-stretch word-in"
+              >
                 <img
                   src={developerReferencePhoto}
                   onError={(e) => {
@@ -794,7 +968,7 @@ export default function App() {
             </div>
 
             {/* Website Link centered below card with Globe and ExternalLink icons */}
-            <div className="text-center mt-4.5 word-in" style={{ '--i': 3 } as React.CSSProperties}>
+            <div className="text-center mt-4.5 word-in" style={{ '--i': 5 } as React.CSSProperties}>
               <a
                 href="https://marco-sawiris.github.io/"
                 target="_blank"
@@ -804,12 +978,11 @@ export default function App() {
               >
                 <Globe className="w-4 h-4 text-[#1f347d] dark:text-sky-400" />
                 <span>marco-sawiris.github.io</span>
-                <ExternalLink className="w-3.5 h-3.5 opacity-70" />
               </a>
             </div>
 
             {/* Close button aligned to bottom end (right side in RTL) */}
-            <div className="mt-6 flex justify-end word-in" style={{ '--i': 4 } as React.CSSProperties}>
+            <div className="mt-6 flex justify-end word-in" style={{ '--i': 6 } as React.CSSProperties}>
               <button
                 type="button"
                 onClick={() => setDeveloperModalOpen(false)}
@@ -829,7 +1002,7 @@ export default function App() {
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setHelpModalOpen(false)}
           />
-          <div className={`relative z-10 w-full max-w-md rounded-2xl p-6 shadow-2xl animate-dialog-pop ${theme === 'dark' ? 'bg-slate-900 text-slate-100 border border-slate-800' : 'bg-white text-[#1f347d]'}`}>
+          <div className={`relative z-10 w-full max-w-md rounded-2xl p-6 shadow-2xl animate-dialog-pop ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border border-slate-800' : 'bg-white text-[#1f347d]'}`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <HelpCircle className="w-5 h-5 text-sky-500" />
@@ -899,7 +1072,7 @@ export default function App() {
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setDriveModalOpen(false)}
           />
-          <div className={`relative z-10 w-full max-w-lg rounded-2xl p-6 shadow-2xl modal-word-in ${theme === 'dark' ? 'bg-slate-900 text-slate-100 border border-slate-800' : 'bg-white text-[#1f347d]'}`}>
+          <div className={`relative z-10 w-full max-w-lg rounded-2xl p-6 shadow-2xl modal-word-in ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100 border border-slate-800' : 'bg-white text-[#1f347d]'}`}>
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
@@ -1038,7 +1211,7 @@ export default function App() {
                     <div className="space-y-3">
                       <div className="p-3.5 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center space-y-1">
                         <div className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                          📦 E7sbly-release.apk (1.8 MB)
+                          📦 E7sbly-release.apk (3.7 MB)
                         </div>
                         <div className="text-[11px] text-slate-400">
                           {lang === 'ar' ? 'نسخة الإنتاج الرسمية الموقّعة والمتوافقة مع أندرويد 10+' : 'Official signed release APK compatible with Android 10+'}
@@ -1100,16 +1273,16 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-2">
                   <a
-                    href="/ehsably-release.apk"
-                    download="ehsably-release.apk"
+                    href="/E7sbly-release.apk"
+                    download="E7sbly-release.apk"
                     className="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-[#1f347d] hover:from-sky-700 hover:to-[#172960] text-white font-bold text-xs flex items-center gap-2 shadow-md transition-transform active:scale-95"
                   >
                     <Download className="w-4 h-4 text-sky-300" />
-                    <span>{lang === 'ar' ? 'تحميل Release APK (1.0 MB)' : 'Download Release APK (1.0 MB)'}</span>
+                    <span>{lang === 'ar' ? 'تحميل Release APK (3.7 MB)' : 'Download Release APK (3.7 MB)'}</span>
                   </a>
                   <a
-                    href="/ehsably-debug.apk"
-                    download="ehsably-debug.apk"
+                    href="/E7sbly-debug.apk"
+                    download="E7sbly-debug.apk"
                     className="px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-transform active:scale-95"
                   >
                     <span>{lang === 'ar' ? 'نسخة Debug' : 'Debug APK'}</span>
@@ -1336,7 +1509,7 @@ export default function App() {
                             onFocus={handleNumericFocus}
                             onChange={(e) => handleProductChange(p.id, 'weight', e.target.value)}
                             placeholder={lang === 'ar' ? 'مثال: ٣٠٠' : 'e.g. 300'}
-                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden placeholder:text-slate-500"
+                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden placeholder:text-slate-500 placeholder:text-right"
                             dir="ltr"
                           />
                           {/* Custom Segmented Unit Switcher - Unified Montserrat-Arabic Font and Visual Harmony */}
@@ -1395,7 +1568,7 @@ export default function App() {
                             onFocus={handleNumericFocus}
                             onChange={(e) => handleProductChange(p.id, 'price', e.target.value)}
                             placeholder={lang === 'ar' ? 'مثال: ٣٠' : 'e.g. 30'}
-                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden placeholder:text-slate-500"
+                            className="w-full px-2.5 py-1.5 text-xs sm:text-sm font-bold bg-transparent text-[#0a192f] dark:text-white text-end focus:outline-hidden placeholder:text-slate-500 placeholder:text-right"
                             dir="ltr"
                           />
                           <span className={`px-2.5 py-1.5 text-xs font-black border-s ${theme === 'dark' ? 'border-slate-700 bg-slate-800 text-slate-200' : 'border-slate-200 bg-slate-100 text-[#0a192f]'}`}>
@@ -1457,7 +1630,7 @@ export default function App() {
                               : `${results.cheapest.name} is the best value, saving ${results.savingsPerUnit.toFixed(2)} EGP`)}
                       </h3>
                       {!results.allEqual && (
-                        <p className="text-[11px] sm:text-xs text-sky-800 dark:text-sky-300 mt-0.5 font-bold flex items-center gap-1.5 flex-wrap">
+                        <p className="text-[11px] sm:text-xs text-sky-700 dark:text-sky-300 mt-0.5 font-bold flex items-center gap-1.5 flex-wrap">
                           <Sparkles className="w-3 h-3 text-amber-500 inline" />
                           <span>
                             {results.isVolume
@@ -1595,7 +1768,7 @@ export default function App() {
                       theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-50 text-[#1f347d] shadow-xs'
                     }`}
                   >
-                    <ArrowLeft className="w-3.5 h-3.5 text-sky-500 rtl:rotate-180" />
+                    <ArrowLeft className="w-3.5 h-3.5 text-sky-500" />
                     <span>{lang === 'ar' ? 'رجوع للمنتجات' : 'Back to Products'}</span>
                   </button>
 

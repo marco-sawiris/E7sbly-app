@@ -181,7 +181,7 @@ export const uploadApkToGoogleDrive = async (
   onProgress?: (msg: string) => void
 ): Promise<UploadedDriveFile> => {
   onProgress?.('جارٍ جلب ملف الـ APK من السيرفر...');
-  const apkResponse = await fetch('/ehsably-release.apk');
+  const apkResponse = await fetch('/E7sbly-release.apk');
   if (!apkResponse.ok) {
     throw new Error(`Failed to fetch APK: HTTP ${apkResponse.status}`);
   }
@@ -214,7 +214,7 @@ export const uploadFullProjectToFolder = async (
   const uploadedFiles: UploadedDriveFile[] = [];
 
   // 2. Upload Signed Release APK
-  onProgress?.(2, totalSteps, 'جارٍ رفع نسخة الإنتاج الرسمية E7sbly-release.apk (1.8 MB)...');
+  onProgress?.(2, totalSteps, 'جارٍ رفع نسخة الإنتاج الرسمية E7sbly-release.apk (3.7 MB)...');
   try {
     const releaseResp = await fetch('/E7sbly-release.apk');
     if (releaseResp.ok) {
@@ -226,14 +226,14 @@ export const uploadFullProjectToFolder = async (
         folderId,
         'تطبيق احسبلى الرسمي الموقّع للأندرويد 10+ (جاهز للتثبيت والتجربة فوراً)'
       );
-      uploadedFiles.push({ ...fileData, size: '1.8 MB' });
+      uploadedFiles.push({ ...fileData, size: '3.7 MB' });
     }
   } catch (err) {
     console.warn('Failed to upload release APK:', err);
   }
 
   // 3. Upload Debug APK
-  onProgress?.(3, totalSteps, 'جارٍ رفع نسخة الاختبار E7sbly-debug.apk (1.8 MB)...');
+  onProgress?.(3, totalSteps, 'جارٍ رفع نسخة الاختبار E7sbly-debug.apk (3.7 MB)...');
   try {
     const debugResp = await fetch('/E7sbly-debug.apk');
     if (debugResp.ok) {
@@ -245,7 +245,7 @@ export const uploadFullProjectToFolder = async (
         folderId,
         'نسخة الاختبار والمطورين (Debug APK)'
       );
-      uploadedFiles.push({ ...fileData, size: '1.8 MB' });
+      uploadedFiles.push({ ...fileData, size: '3.7 MB' });
     }
   } catch (err) {
     console.warn('Failed to upload debug APK:', err);

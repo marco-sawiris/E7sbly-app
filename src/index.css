@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Ensure vertical stacking for bullet lists */
+ul, ol {
+  display: block;
+}
+li {
+  display: list-item;
+}
+
 /* Montserrat Arabic font declarations supporting relative, root, and android_asset paths */
 @font-face {
   font-family: "Montserrat Arabic";
@@ -181,7 +191,7 @@ select, option, button, a, [role="button"] {
 .word-in {
   perspective: 900px;
   animation: wordIn 1.1s var(--ease-spring) 1 normal both;
-  animation-delay: calc(180ms + var(--i, 0) * 160ms);
+  animation-delay: calc(180ms + var(--i, 0) * 80ms);
 }
 
 .modal-word-in {
