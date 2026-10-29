@@ -559,12 +559,19 @@ export default function App() {
 
       {/* Settings Navigation Drawer - slides from right in Arabic (RTL) */}
       {drawerOpen && (
-        <div className={`fixed inset-0 z-50 flex animate-slide-up-fade ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}>
+        <div
+          dir={lang === 'ar' ? 'rtl' : 'ltr'}
+          className={`fixed inset-0 z-50 flex animate-slide-up-fade ${lang === 'ar' ? 'justify-end' : 'justify-start'}`}
+        >
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
             onClick={() => setDrawerOpen(false)}
           />
-          <aside className={`relative z-10 w-80 max-w-[85vw] h-full p-5 flex flex-col shadow-2xl transition-transform ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100' : 'bg-white text-[#0a192f]'} ${lang === 'ar' ? 'border-l border-slate-200 dark:border-slate-800' : 'border-r border-slate-200 dark:border-slate-800'}`}>
+          <aside
+            className={`fixed top-0 bottom-0 z-10 w-80 max-w-[85vw] h-full p-5 flex flex-col shadow-2xl transition-transform ${
+              lang === 'ar' ? 'right-0 border-l border-slate-200 dark:border-slate-800' : 'left-0 border-r border-slate-200 dark:border-slate-800'
+            } ${theme === 'dark' ? 'bg-[#0f172a] text-slate-100' : 'bg-white text-[#0a192f]'}`}
+          >
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
               <div className="flex items-center gap-2.5 font-black text-base">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1f347d] to-[#3c89bd] text-white flex items-center justify-center font-bold text-sm shadow-xs">
