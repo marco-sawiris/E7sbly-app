@@ -1645,7 +1645,7 @@ export default function App() {
                               : (lang === 'ar' ? 'سعر موحد لـ ١ كيلو' : 'Standard 1 Kg')}
                           </span>
                           <span>·</span>
-                          <span className="font-black text-emerald-700 dark:text-emerald-400">
+                          <span className="font-black text-emerald-900 dark:text-emerald-400">
                             {lang === 'ar'
                               ? `توفير ${results.savingsPercent.toFixed(1)}٪ مقارنة بالخيار الأعلى`
                               : `Saves ${results.savingsPercent.toFixed(1)}% vs highest`}
@@ -1775,7 +1775,7 @@ export default function App() {
                       theme === 'dark' ? 'border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200' : 'border-slate-300 bg-white hover:bg-slate-50 text-[#1f347d] shadow-xs'
                     }`}
                   >
-                    <ArrowLeft className="w-3.5 h-3.5 text-sky-500" />
+                    {lang === 'ar' ? <ArrowRight className="w-3.5 h-3.5 text-sky-500" /> : <ArrowLeft className="w-3.5 h-3.5 text-sky-500" />}
                     <span>{lang === 'ar' ? 'رجوع للمنتجات' : 'Back to Products'}</span>
                   </button>
 
